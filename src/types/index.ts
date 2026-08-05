@@ -2,7 +2,7 @@ export type Affiliation = '청장1부' | '청장2부' | '지교회';
 export type BloodType = 'A' | 'B' | 'O' | 'AB';
 export type LodgingOption = 'O' | 'X';
 export type PaymentStatus = '입금전' | '입금완료';
-export type RegistrationState = '접수예정' | '접수중' | '접수마감';
+export type RegistrationState = '등록예정' | '등록중' | '등록마감';
 
 export interface FamilyAdult {
   name: string;

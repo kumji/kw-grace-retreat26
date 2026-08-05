@@ -18,7 +18,7 @@ export const defaultSettings: Settings = {
   earlyBirdBenefit: '',
   notice: '',
   guideText: '',
-  registrationState: '접수예정',
+  registrationState: '등록예정',
 };
 
 export async function getSettings(): Promise<Settings> {

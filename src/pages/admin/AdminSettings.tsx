@@ -6,7 +6,7 @@ import { Input, Label, Textarea } from '@/components/ui/Field';
 import { getSettings, saveSettings, defaultSettings } from '@/services/settings';
 import type { RegistrationState, Settings } from '@/types';
 
-const registrationStateOptions: RegistrationState[] = ['접수예정', '접수중', '접수마감'];
+const registrationStateOptions: RegistrationState[] = ['등록예정', '등록중', '등록마감'];
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -79,8 +79,8 @@ export function AdminSettings() {
     <div className="space-y-4 pb-24">
       <h1 className="text-lg font-bold text-gray-800">설정</h1>
 
-      <Section title="1. 얼리버드 접수 기간">
-        <div className="grid grid-cols-2 gap-3">
+      <Section title="1. 얼리버드 등록 기간">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div>
             <Label htmlFor="eb-start">시작일</Label>
             <Input
@@ -102,8 +102,8 @@ export function AdminSettings() {
         </div>
       </Section>
 
-      <Section title="2. 일반 접수 기간">
-        <div className="grid grid-cols-2 gap-3">
+      <Section title="2. 일반 등록 기간">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div>
             <Label htmlFor="reg-start">시작일</Label>
             <Input
@@ -227,7 +227,7 @@ export function AdminSettings() {
           ))}
         </div>
         <p className="mt-3 text-xs text-gray-400">
-          날짜 설정보다 우선 적용됩니다. 예: 일반 접수 기간 중이어도 '접수마감' 선택 시 즉시 등록이 중단됩니다.
+          날짜 설정보다 우선 적용됩니다. 예: 일반 등록 기간 중이어도 '등록마감' 선택 시 즉시 등록이 중단됩니다.
         </p>
       </Section>
 

@@ -64,8 +64,8 @@ export function RegisterTab() {
       <Card>
         <p className="text-sm text-gray-500">가족은 대표 1명만 신청합니다.</p>
         <div className="mt-3">
-          {status.phase === 'earlybird' && <Badge tone="mint">얼리버드 접수 중</Badge>}
-          {status.phase === 'regular' && <Badge tone="brand">일반 접수 중</Badge>}
+          {status.phase === 'earlybird' && <Badge tone="mint">얼리버드 등록 중</Badge>}
+          {status.phase === 'regular' && <Badge tone="brand">일반 등록 중</Badge>}
           {(status.phase === 'pending' || status.phase === 'closed') && (
             <Badge tone="gray">{status.message}</Badge>
           )}

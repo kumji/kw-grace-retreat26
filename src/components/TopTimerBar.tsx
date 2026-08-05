@@ -23,7 +23,7 @@ export function TopTimerBar() {
   switch (status.phase) {
     case 'pending': {
       const range = formatDateRangeKorean(settings.earlyBirdStart, settings.earlyBirdEnd);
-      message = range ? `얼리버드 등록 기간은 ${range} 입니다.` : '접수 예정입니다.';
+      message = range ? `얼리버드 등록 기간은 ${range} 입니다.` : '등록 예정입니다.';
       break;
     }
     case 'earlybird': {

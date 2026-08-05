@@ -51,20 +51,20 @@ export function getCountdownParts(deadlineISO: string, now: Date = new Date()): 
 }
 
 export function getRegistrationStatus(settings: Settings): RegistrationStatus {
-  if (settings.registrationState === '접수예정') {
-    return { canRegister: false, phase: 'pending', message: '접수 예정입니다.' };
+  if (settings.registrationState === '등록예정') {
+    return { canRegister: false, phase: 'pending', message: '등록 예정입니다.' };
   }
-  if (settings.registrationState === '접수마감') {
-    return { canRegister: false, phase: 'closed', message: '접수가 마감되었습니다.' };
+  if (settings.registrationState === '등록마감') {
+    return { canRegister: false, phase: 'closed', message: '등록가 마감되었습니다.' };
   }
 
   const date = todayISO();
 
   if (isWithin(date, settings.earlyBirdStart, settings.earlyBirdEnd)) {
-    return { canRegister: true, phase: 'earlybird', message: '얼리버드 접수 중입니다.' };
+    return { canRegister: true, phase: 'earlybird', message: '얼리버드 등록 중입니다.' };
   }
   if (isWithin(date, settings.regularStart, settings.regularEnd)) {
-    return { canRegister: true, phase: 'regular', message: '일반 접수 중입니다.' };
+    return { canRegister: true, phase: 'regular', message: '일반 등록 중입니다.' };
   }
 
   const beforeStart =
@@ -72,8 +72,8 @@ export function getRegistrationStatus(settings: Settings): RegistrationStatus {
     (!settings.earlyBirdStart && settings.regularStart && date < settings.regularStart);
 
   if (beforeStart) {
-    return { canRegister: false, phase: 'pending', message: '접수 예정입니다.' };
+    return { canRegister: false, phase: 'pending', message: '등록 예정입니다.' };
   }
 
-  return { canRegister: false, phase: 'closed', message: '접수가 마감되었습니다.' };
+  return { canRegister: false, phase: 'closed', message: '등록가 마감되었습니다.' };
 }

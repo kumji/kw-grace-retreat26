@@ -6,7 +6,7 @@ import { ErrorNotice } from '@/components/ui/ErrorNotice';
 import { Button } from '@/components/ui/Button';
 import { Input, Label } from '@/components/ui/Field';
 import { useSettings } from '@/hooks/useSettings';
-import { isEarlyBirdActive } from '@/lib/registrationState';
+import { getRegistrationStatus, isEarlyBirdActive } from '@/lib/registrationState';
 import { findRegistrationByNamePhone } from '@/services/registrations';
 import { saveRegistrationId } from '@/lib/localRegistration';
 
@@ -52,6 +52,8 @@ export function GuideTab() {
   if (error) {
     return <ErrorNotice message={error} />;
   }
+
+  const status = getRegistrationStatus(settings);
 
   return (
     <div className="space-y-4">
@@ -100,7 +102,8 @@ export function GuideTab() {
             />
           </div>
           {checkError && <p className="text-sm text-rose-500">{checkError}</p>}
-          <Button type="submit" size="lg" className="w-full" disabled={checking}>
+          {!status.canRegister && <p className="text-sm text-gray-400">{status.message}</p>}
+          <Button type="submit" size="lg" className="w-full" disabled={checking || !status.canRegister}>
             {checking ? '확인 중...' : '등록하기'}
           </Button>
         </form>
