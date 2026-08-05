@@ -124,7 +124,7 @@ export function LookupTab() {
         </p>
         <form onSubmit={handleSearch} className="space-y-4">
           <div>
-            <Label htmlFor="search-name">이름</Label>
+            <Label htmlFor="search-name">대표자 이름</Label>
             <Input
               id="search-name"
               value={searchName}
