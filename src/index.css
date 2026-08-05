@@ -1,0 +1,80 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Pretendard Variable', Pretendard, system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  --color-brand-50: #f0fdf6;
+  --color-brand-100: #dcfce9;
+  --color-brand-200: #baf3d3;
+  --color-brand-300: #86e6b3;
+  --color-brand-400: #4dd18d;
+  --color-brand-500: #22b872;
+  --color-brand-600: #16965b;
+  --color-brand-700: #14764b;
+  --color-brand-800: #145d3e;
+  --color-brand-900: #124c34;
+
+  --color-mint-50: #effcf9;
+  --color-mint-100: #d3f8ef;
+  --color-mint-200: #a9f0e0;
+  --color-mint-300: #71e2cd;
+  --color-mint-400: #3dccb5;
+  --color-mint-500: #22b09b;
+  --color-mint-600: #178c7d;
+  --color-mint-700: #167066;
+  --color-mint-800: #175951;
+  --color-mint-900: #164a44;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #ffffff;
+  color: #17332a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.25s ease-out;
+}
+
+@keyframes leaf-sway {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+.animate-leaf-sway {
+  animation: leaf-sway 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-leaf-sway {
+    animation: none;
+  }
+}

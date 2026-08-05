@@ -1,0 +1,21 @@
+rules_version = '2';
+
+// NOTE: This MVP has no Firebase Authentication — the admin page gates access
+// with a hardcoded client-side password (see spec.md 4.0). Firestore rules
+// cannot verify that password, so admin-only writes (settings, payment status,
+// check-in) are only enforced in the UI, not at the database layer. Anyone
+// with the Firebase config values (which ship in the public JS bundle) could
+// technically write to these collections directly. Tighten this once
+// Firebase Auth + custom claims (or a Cloud Function) back the admin role.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /registrations/{registrationId} {
+      allow read, create, update, delete: if true;
+    }
+
+    match /settings/{settingsId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}
