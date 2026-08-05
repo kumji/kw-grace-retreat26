@@ -82,7 +82,7 @@ export function AdminPayments() {
     <div className="space-y-4">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Card>
-          <p className="text-sm text-gray-400">등록자 현황</p>
+          <p className="text-sm text-gray-600">등록자 현황</p>
           <p className="mt-1 text-xl font-bold text-brand-700">
             총 등록자 {stats.totalRegistrants}명 / 입금 완료 {stats.paidRegistrants}명
           </p>

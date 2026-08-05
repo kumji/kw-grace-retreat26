@@ -23,8 +23,6 @@ export function AdminCheckin() {
       {
         fps: 10,
         qrbox: 250,
-        showZoomSliderIfSupported: true,
-        defaultZoomValueIfSupported: 2,
         videoConstraints: {
           facingMode: { ideal: 'environment' },
           width: { ideal: 1920 },

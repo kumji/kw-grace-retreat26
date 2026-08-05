@@ -64,8 +64,8 @@ export function AdminRegistrations() {
 
   return (
     <div className="space-y-4">
-      <Card className="bg-brand-500 text-white">
-        <p className="text-sm text-brand-100">총 참가 인원</p>
+      <Card className="bg-brand-500 text-brand-600">
+        <p className="text-sm font-medium text-gray-600">총 참가 인원</p>
         <p className="mt-1 text-2xl font-bold">
           성인 {stats.adults}명 / 자녀 {stats.children}명 / 총 {stats.total}명
         </p>
