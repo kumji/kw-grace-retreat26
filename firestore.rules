@@ -1,21 +1,40 @@
 rules_version = '2';
 
-// NOTE: This MVP has no Firebase Authentication — the admin page gates access
-// with a hardcoded client-side password (see spec.md 4.0). Firestore rules
-// cannot verify that password, so admin-only writes (settings, payment status,
-// check-in) are only enforced in the UI, not at the database layer. Anyone
-// with the Firebase config values (which ship in the public JS bundle) could
-// technically write to these collections directly. Tighten this once
-// Firebase Auth + custom claims (or a Cloud Function) back the admin role.
+// Admin identity: the login screen (a single password field, per spec 4.0) signs
+// in behind the scenes with a fixed Firebase Auth account. `request.auth.uid`
+// counting as "admin" is determined by the existence of admins/{uid} — that
+// collection is never client-writable, so nobody can self-promote by creating
+// a Firebase Auth account and writing their own uid into it.
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Existence-only lookup table for isAdmin(). exists() bypasses these
+    // read/write rules during rule evaluation, so locking both down entirely
+    // is safe and intentional — no client ever needs direct access to this.
+    match /admins/{adminId} {
+      allow read, write: if false;
+    }
+
     match /registrations/{registrationId} {
-      allow read, create, update, delete: if true;
+      // Public registration flow: anyone can create their own registration,
+      // read to look up/QR-checkin, and delete (등록 취소) with just the
+      // document id or a name+phone match — matches spec's no-account design.
+      allow read, create, delete: if true;
+
+      // Self-edit (등록 정보 수정) stays open the same way, but payment status
+      // and check-in state can only change through an authenticated admin.
+      allow update: if isAdmin() ||
+        !request.resource.data.diff(resource.data).affectedKeys()
+          .hasAny(['paymentStatus', 'checkedIn', 'checkedInAt']);
     }
 
     match /settings/{settingsId} {
       allow read: if true;
-      allow write: if true;
+      allow write: if isAdmin();
     }
   }
 }

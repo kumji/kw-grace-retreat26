@@ -11,17 +11,21 @@ export function AdminLogin() {
   const location = useLocation();
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   const from = (location.state as { from?: string } | null)?.from ?? '/admin/registrations';
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    if (login(password)) {
+    setSubmitting(true);
+    const ok = await login(password);
+    if (ok) {
       navigate(from, { replace: true });
-    } else {
-      setError('비밀번호가 올바르지 않습니다.');
-      setPassword('');
+      return;
     }
+    setError('비밀번호가 올바르지 않습니다.');
+    setPassword('');
+    setSubmitting(false);
   }
 
   return (
@@ -45,6 +49,7 @@ export function AdminLogin() {
               type="password"
               inputMode="numeric"
               autoFocus
+              disabled={submitting}
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
@@ -54,8 +59,8 @@ export function AdminLogin() {
             />
             {error && <p className="mt-2 text-sm text-rose-500">{error}</p>}
           </div>
-          <Button type="submit" className="w-full">
-            로그인
+          <Button type="submit" className="w-full" disabled={submitting}>
+            {submitting ? '로그인 중...' : '로그인'}
           </Button>
         </form>
       </Card>

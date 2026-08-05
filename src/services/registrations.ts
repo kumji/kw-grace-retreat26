@@ -18,6 +18,7 @@ import {
 import { db } from './firebase';
 import { calcAmountDue, calcTotalCount } from '@/lib/calc';
 import { guardSnapshotTimeout, withTimeout } from '@/lib/timeout';
+import { normalizePhone } from '@/lib/phone';
 import type { Registration, RegistrationInput, Settings } from '@/types';
 
 const COLLECTION = 'registrations';
@@ -64,6 +65,7 @@ export async function createRegistration(
   await withTimeout(
     setDoc(ref, {
       ...input,
+      phoneNormalized: normalizePhone(input.phone),
       totalCount,
       amountDue,
       paymentStatus: '입금전',
@@ -89,7 +91,7 @@ export async function findRegistrationByNamePhone(
   const q = query(
     collection(db, COLLECTION),
     where('name', '==', name),
-    where('phone', '==', phone),
+    where('phoneNormalized', '==', normalizePhone(phone)),
   );
   const snaps = await withTimeout(getDocs(q));
   if (snaps.empty) return null;
@@ -152,6 +154,7 @@ export async function updateRegistration(
   await withTimeout(
     updateDoc(doc(db, COLLECTION, id), {
       ...input,
+      phoneNormalized: normalizePhone(input.phone),
       totalCount,
       amountDue,
       updatedAt: serverTimestamp(),
