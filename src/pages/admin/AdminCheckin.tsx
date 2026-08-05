@@ -20,7 +20,18 @@ export function AdminCheckin() {
 
     const scanner = new Html5QrcodeScanner(
       SCANNER_ELEMENT_ID,
-      { fps: 10, qrbox: 250 },
+      {
+        fps: 10,
+        qrbox: 250,
+        showZoomSliderIfSupported: true,
+        defaultZoomValueIfSupported: 2,
+        videoConstraints: {
+          facingMode: { ideal: 'environment' },
+          width: { ideal: 1920 },
+          height: { ideal: 1080 },
+          advanced: [{ focusMode: 'continuous' }] as unknown as MediaTrackConstraintSet[],
+        },
+      },
       false,
     );
     scannerRef.current = scanner;
@@ -103,8 +114,8 @@ export function AdminCheckin() {
               <h2 className="text-base font-bold text-brand-800">{registration.name}</h2>
               <span className="text-sm text-gray-400">{registration.affiliation}</span>
             </div>
-            <p className="text-sm text-gray-500">연락처 : {registration.phone}</p>
-            <p className="text-sm text-gray-500">숙박 여부 : {registration.lodging}</p>
+            <p className="text-sm text-gray-700">연락처 : {registration.phone}</p>
+            <p className="text-sm text-gray-700">숙박 여부 : {registration.lodging}</p>
             <p
               className={`text-sm font-semibold ${
                 registration.paymentStatus === '입금완료' ? 'text-brand-600' : 'text-gray-400'
@@ -112,15 +123,17 @@ export function AdminCheckin() {
             >
               입금 여부 : {registration.paymentStatus}
             </p>
-            <p className="text-sm text-gray-500">
-              총 참가 인원 : {registration.totalCount}명 · {formatCurrency(registration.amountDue)}
+            <p className="text-sm text-gray-600">
+              총 참가 인원 :{' '}
+              <span className="font-semibold text-gray-800">{registration.totalCount}명</span> ·{' '}
+              <span className="font-bold text-brand-700">{formatCurrency(registration.amountDue)}</span>
             </p>
 
             {registration.adults.length > 0 && (
               <div className="space-y-1 border-t border-gray-100 pt-3">
                 <p className="text-xs font-semibold text-mint-700">성인</p>
                 {registration.adults.map((a, i) => (
-                  <p key={i} className="text-sm text-gray-600">
+                  <p key={i} className="text-sm text-gray-700">
                     {a.name} · 숙박 {a.lodging}
                   </p>
                 ))}
@@ -131,7 +144,7 @@ export function AdminCheckin() {
               <div className="space-y-1 border-t border-gray-100 pt-3">
                 <p className="text-xs font-semibold text-brand-700">자녀</p>
                 {registration.children.map((c, i) => (
-                  <p key={i} className="text-sm text-gray-600">
+                  <p key={i} className="text-sm text-gray-700">
                     {c.name} · 만 {c.age}세 · 숙박 {c.lodging}
                   </p>
                 ))}

@@ -44,6 +44,16 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/*
+ * iOS Safari gives input[type="date"] an internal -webkit-min-logical-width
+ * that overrides `width: 100%`, so it visually overflows its container
+ * regardless of CSS width. Forcing both to 0/100% makes it respect the box.
+ */
+input[type='date'] {
+  min-width: 0;
+  -webkit-min-logical-width: 100%;
+}
+
 @keyframes fade-in-up {
   from {
     opacity: 0;
