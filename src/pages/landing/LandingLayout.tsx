@@ -2,8 +2,8 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { ForestBackground } from '@/components/ForestBackground';
 
 const tabs = [
-  { to: '/', label: '수련회 안내', end: true },
-  { to: '/lookup', label: '등록확인/수정', end: false },
+  { to: '/', label: '수련회 안내 및 등록', end: true },
+  { to: '/lookup', label: '등록 확인/수정/취소', end: false },
 ];
 
 export function LandingLayout() {

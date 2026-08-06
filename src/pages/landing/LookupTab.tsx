@@ -95,6 +95,16 @@ export function LookupTab() {
     }
   }
 
+  function handleGoBack() {
+    clearRegistrationId();
+    setRegId(null);
+    setRegistration(null);
+    setSearchName('');
+    setSearchPhone('');
+    setSearchError('');
+    setMode('search');
+  }
+
   async function handleCancelRegistration() {
     if (!registration) return;
     if (!window.confirm('정말 등록을 취소하시겠습니까? 취소 후에는 되돌릴 수 없습니다.')) return;
@@ -262,7 +272,7 @@ export function LookupTab() {
 
       <div className="flex gap-2">
         <Button variant="outline" className="flex-1" onClick={() => setMode('edit')}>
-          등록 정보 수정
+          수정하기
         </Button>
         <Button
           variant="danger"
@@ -270,7 +280,10 @@ export function LookupTab() {
           onClick={handleCancelRegistration}
           disabled={cancelling}
         >
-          {cancelling ? '취소 중...' : '등록 취소'}
+          {cancelling ? '취소 중...' : '취소하기'}
+        </Button>
+        <Button variant="outline" className="flex-1" onClick={handleGoBack}>
+          돌아가기
         </Button>
       </div>
 

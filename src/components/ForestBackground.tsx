@@ -4,7 +4,7 @@ export function ForestBackground() {
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
       <svg
-        className="absolute -left-8 -top-8 h-32 w-32 opacity-90 sm:h-44 sm:w-44"
+        className="absolute -left-8 top-9 h-32 w-32 opacity-90 sm:top-10 sm:h-44 sm:w-44"
         viewBox="0 0 120 120"
         fill="none"
       >
@@ -24,7 +24,7 @@ export function ForestBackground() {
       </svg>
 
       <svg
-        className="absolute -right-6 -top-6 h-24 w-24 rotate-90 opacity-80 sm:h-32 sm:w-32"
+        className="absolute -right-6 top-9 h-24 w-24 rotate-90 opacity-80 sm:top-10 sm:h-32 sm:w-32"
         viewBox="0 0 120 120"
         fill="none"
       >

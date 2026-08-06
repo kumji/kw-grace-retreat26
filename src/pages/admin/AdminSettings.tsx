@@ -200,7 +200,7 @@ export function AdminSettings() {
         />
       </Section>
 
-      <Section title="8. 수련회 안내">
+      <Section title="8. 수련회 안내 및 등록">
         <Textarea
           value={draft.guideText}
           onChange={(e) => update('guideText', e.target.value)}
