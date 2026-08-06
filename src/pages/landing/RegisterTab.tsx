@@ -16,7 +16,7 @@ const emptyValue: RegistrationInput = {
   phone: '',
   birthMonth: 1,
   bloodType: 'A',
-  lodging: 'X',
+  lodging: '숙박안함',
   adults: [],
   children: [],
   note: '',

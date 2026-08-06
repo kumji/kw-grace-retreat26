@@ -63,7 +63,7 @@ export function buildDisplayRows(registrations: Registration[]): DisplayRow[] {
         phone: r.phone,
         birthMonth: '',
         bloodType: '',
-        lodging: child.lodging,
+        lodging: r.lodging,
         paymentStatus: r.paymentStatus,
         checkedIn: r.checkedIn,
         etc: `나이 : 만 ${child.age}세`,

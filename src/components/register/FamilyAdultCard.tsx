@@ -1,5 +1,5 @@
 import { Label, Input, Select } from '@/components/ui/Field';
-import { birthMonthOptions, bloodTypeOptions, lodgingOptions } from '@/lib/options';
+import { birthMonthOptions, bloodTypeOptions } from '@/lib/options';
 import type { FamilyAdult } from '@/types';
 
 interface Props {
@@ -52,19 +52,6 @@ export function FamilyAdultCard({ index, value, onChange, onRemove }: Props) {
             {bloodTypeOptions.map((b) => (
               <option key={b} value={b}>
                 {b}
-              </option>
-            ))}
-          </Select>
-        </div>
-        <div className="col-span-2">
-          <Label>숙박 여부</Label>
-          <Select
-            value={value.lodging}
-            onChange={(e) => onChange({ ...value, lodging: e.target.value as FamilyAdult['lodging'] })}
-          >
-            {lodgingOptions.map((l) => (
-              <option key={l} value={l}>
-                {l}
               </option>
             ))}
           </Select>

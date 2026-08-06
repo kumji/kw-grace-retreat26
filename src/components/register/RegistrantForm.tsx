@@ -4,12 +4,13 @@ import { Button } from '@/components/ui/Button';
 import { Input, Label, Select, Textarea } from '@/components/ui/Field';
 import { FamilyAdultCard } from '@/components/register/FamilyAdultCard';
 import { FamilyChildCard } from '@/components/register/FamilyChildCard';
-import { affiliationOptions, birthMonthOptions, bloodTypeOptions, lodgingOptions } from '@/lib/options';
+import { LodgingToggle } from '@/components/register/LodgingToggle';
+import { affiliationOptions, birthMonthOptions, bloodTypeOptions } from '@/lib/options';
 import { calcAmountDue, calcTotalCount, formatCurrency } from '@/lib/calc';
 import type { Affiliation, BloodType, FamilyAdult, FamilyChild, LodgingOption, RegistrationInput, Settings } from '@/types';
 
-const emptyAdult: FamilyAdult = { name: '', birthMonth: 1, bloodType: 'A', lodging: 'X' };
-const emptyChild: FamilyChild = { name: '', age: 0, lodging: 'X' };
+const emptyAdult: FamilyAdult = { name: '', birthMonth: 1, bloodType: 'A'};
+const emptyChild: FamilyChild = { name: '', age: 0};
 
 interface Props {
   initialValue: RegistrationInput;
@@ -118,17 +119,7 @@ export function RegistrantForm({ initialValue, settings, submitLabel, submitting
           </div>
           <div className="col-span-2">
             <Label htmlFor="lodging">숙박 여부</Label>
-            <Select
-              id="lodging"
-              value={lodging}
-              onChange={(e) => setLodging(e.target.value as LodgingOption)}
-            >
-              {lodgingOptions.map((l) => (
-                <option key={l} value={l}>
-                  {l}
-                </option>
-              ))}
-            </Select>
+            <LodgingToggle value={lodging} onChange={setLodging} />
           </div>
         </div>
       </Card>

@@ -1,5 +1,4 @@
-import { Label, Input, Select } from '@/components/ui/Field';
-import { lodgingOptions } from '@/lib/options';
+import { Label, Input } from '@/components/ui/Field';
 import type { FamilyChild } from '@/types';
 
 interface Props {
@@ -22,8 +21,8 @@ export function FamilyChildCard({ index, value, onChange, onRemove }: Props) {
           삭제
         </button>
       </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="col-span-2">
+      <div className="space-y-3">
+        <div>
           <Label>이름</Label>
           <Input
             value={value.name}
@@ -38,19 +37,6 @@ export function FamilyChildCard({ index, value, onChange, onRemove }: Props) {
             value={value.age === 0 ? "" : value.age}
             onChange={(e) => onChange({ ...value, age: Number(e.target.value) })}
           />
-        </div>
-        <div>
-          <Label>숙박 여부</Label>
-          <Select
-            value={value.lodging}
-            onChange={(e) => onChange({ ...value, lodging: e.target.value as FamilyChild['lodging'] })}
-          >
-            {lodgingOptions.map((l) => (
-              <option key={l} value={l}>
-                {l}
-              </option>
-            ))}
-          </Select>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 export type Affiliation = '청장1부' | '청장2부' | '지교회';
 export type BloodType = 'A' | 'B' | 'O' | 'AB';
-export type LodgingOption = 'O' | 'X';
+export type LodgingOption = '침대방' | '온돌방' | '숙박안함';
 export type PaymentStatus = '입금전' | '입금완료';
 export type RegistrationState = '등록예정' | '등록중' | '등록마감';
 
@@ -8,13 +8,11 @@ export interface FamilyAdult {
   name: string;
   birthMonth: number;
   bloodType: BloodType;
-  lodging: LodgingOption;
 }
 
 export interface FamilyChild {
   name: string;
   age: number;
-  lodging: LodgingOption;
 }
 
 export interface Registration {

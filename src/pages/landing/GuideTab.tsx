@@ -74,7 +74,7 @@ export function GuideTab() {
       )}
 
       <Card>
-        <h2 className="mb-2 text-sm font-bold text-brand-700">수련회 안내</h2>
+        <h2 className="mb-2 text-sm font-bold text-brand-700">수련회 안내 및 등록</h2>
         <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-700">
           {settings.guideText || '안내 내용이 준비 중입니다.'}
         </p>
