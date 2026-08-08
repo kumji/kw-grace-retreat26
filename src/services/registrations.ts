@@ -56,7 +56,7 @@ function docToRegistration(
 
 export async function createRegistration(
   input: RegistrationInput,
-  settings: Pick<Settings, 'adultFee' | 'childFee'>,
+  settings: Pick<Settings, 'adultFee' | 'schoolAgeChildFee' | 'preschoolChildFee'>,
 ): Promise<string> {
   const ref = doc(collection(db, COLLECTION));
   const totalCount = calcTotalCount(input.adults, input.children);
@@ -146,7 +146,7 @@ export function subscribeRegistrations(
 export async function updateRegistration(
   id: string,
   input: RegistrationInput,
-  settings: Pick<Settings, 'adultFee' | 'childFee'>,
+  settings: Pick<Settings, 'adultFee' | 'schoolAgeChildFee' | 'preschoolChildFee'>,
 ): Promise<void> {
   const totalCount = calcTotalCount(input.adults, input.children);
   const amountDue = calcAmountDue(input.adults, input.children, settings);

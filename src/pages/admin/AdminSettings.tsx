@@ -140,13 +140,13 @@ export function AdminSettings() {
         </div>
       </Section>
 
-      <Section title="4. 자녀 등록비">
+      <Section title="4. 취학 등록비">
         <div className="relative">
           <Input
             type="number"
             placeholder="0"
-            value={draft.childFee === 0 ? "" : draft.childFee}
-            onChange={(e) => update('childFee', Number(e.target.value))}
+            value={draft.schoolAgeChildFee === 0 ? "" : draft.schoolAgeChildFee}
+            onChange={(e) => update('schoolAgeChildFee', Number(e.target.value))}
             className="pr-12"
           />
           <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-400">
@@ -155,7 +155,22 @@ export function AdminSettings() {
         </div>
       </Section>
 
-      <Section title="5. 입금 계좌">
+      <Section title="5. 미취학 등록비">
+        <div className="relative">
+          <Input
+            type="number"
+            placeholder="0"
+            value={draft.preschoolChildFee === 0 ? "" : draft.preschoolChildFee}
+            onChange={(e) => update('preschoolChildFee', Number(e.target.value))}
+            className="pr-12"
+          />
+          <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-400">
+            원
+          </span>
+        </div>
+      </Section>
+
+      <Section title="6. 입금 계좌">
         <div className="space-y-3">
           <div>
             <Label htmlFor="bank-name">은행명</Label>
@@ -184,7 +199,7 @@ export function AdminSettings() {
         </div>
       </Section>
 
-      <Section title="6. 얼리버드 혜택 안내">
+      <Section title="7. 얼리버드 혜택 안내">
         <Textarea
           value={draft.earlyBirdBenefit}
           onChange={(e) => update('earlyBirdBenefit', e.target.value)}
@@ -192,7 +207,7 @@ export function AdminSettings() {
         />
       </Section>
 
-      <Section title="7. 공지사항">
+      <Section title="8. 공지사항">
         <Textarea
           value={draft.notice}
           onChange={(e) => update('notice', e.target.value)}
@@ -200,7 +215,7 @@ export function AdminSettings() {
         />
       </Section>
 
-      <Section title="8. 수련회 안내 및 등록">
+      <Section title="9. 수련회 안내 및 등록">
         <Textarea
           value={draft.guideText}
           onChange={(e) => update('guideText', e.target.value)}
@@ -209,7 +224,7 @@ export function AdminSettings() {
         />
       </Section>
 
-      <Section title="9. 등록 상태">
+      <Section title="10. 등록 상태">
         <div className="grid grid-cols-3 gap-2">
           {registrationStateOptions.map((state) => (
             <button

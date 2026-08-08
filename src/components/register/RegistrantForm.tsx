@@ -10,11 +10,11 @@ import { calcAmountDue, calcTotalCount, formatCurrency } from '@/lib/calc';
 import type { Affiliation, BloodType, FamilyAdult, FamilyChild, LodgingOption, RegistrationInput, Settings } from '@/types';
 
 const emptyAdult: FamilyAdult = { name: '', birthMonth: 1, bloodType: 'A'};
-const emptyChild: FamilyChild = { name: '', age: 0};
+const emptyChild: FamilyChild = { name: '', age: 0, schoolStatus: '미취학' };
 
 interface Props {
   initialValue: RegistrationInput;
-  settings: Pick<Settings, 'adultFee' | 'childFee'>;
+  settings: Pick<Settings, 'adultFee' | 'schoolAgeChildFee' | 'preschoolChildFee'>;
   submitLabel: string;
   submitting: boolean;
   onSubmit: (input: RegistrationInput) => void;

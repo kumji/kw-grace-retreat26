@@ -1,6 +1,6 @@
 import type { Affiliation, BloodType, LodgingOption, PaymentStatus, Registration } from '@/types';
 
-export type RowCategory = '대표' | '성인' | '자녀';
+export type RowCategory = '대표' | '성인' | '취학' | '미취학';
 
 export interface DisplayRow {
   registrationId: string;
@@ -56,7 +56,7 @@ export function buildDisplayRows(registrations: Registration[]): DisplayRow[] {
     for (const child of r.children) {
       rows.push({
         registrationId: r.id,
-        category: '자녀',
+        category: child.schoolStatus,
         registrantName: r.name,
         name: child.name,
         affiliation: r.affiliation,

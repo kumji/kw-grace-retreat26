@@ -1,4 +1,6 @@
 import { Label, Input } from '@/components/ui/Field';
+import { ToggleButtonGroup } from '@/components/ui/ToggleButtonGroup';
+import { schoolStatusOptions } from '@/lib/options';
 import type { FamilyChild } from '@/types';
 
 interface Props {
@@ -7,6 +9,8 @@ interface Props {
   onChange: (value: FamilyChild) => void;
   onRemove: () => void;
 }
+
+const SCHOOL_AGE_THRESHOLD = 7;
 
 export function FamilyChildCard({ index, value, onChange, onRemove }: Props) {
   return (
@@ -29,14 +33,32 @@ export function FamilyChildCard({ index, value, onChange, onRemove }: Props) {
             onChange={(e) => onChange({ ...value, name: e.target.value })}
           />
         </div>
-        <div>
-          <Label>만 나이</Label>
-          <Input
-            type="number"
-            placeholder="0"
-            value={value.age === 0 ? "" : value.age}
-            onChange={(e) => onChange({ ...value, age: Number(e.target.value) })}
-          />
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <Label>만 나이</Label>
+            <Input
+              type="number"
+              placeholder="0"
+              value={value.age === 0 ? "" : value.age}
+              onChange={(e) => {
+                const age = Number(e.target.value);
+                onChange({
+                  ...value,
+                  age,
+                  schoolStatus: age >= SCHOOL_AGE_THRESHOLD ? '취학' : '미취학',
+                });
+              }}
+            />
+          </div>
+          <div>
+            <Label>취학 여부</Label>
+            <ToggleButtonGroup
+              options={schoolStatusOptions}
+              value={value.schoolStatus}
+              onChange={(schoolStatus) => onChange({ ...value, schoolStatus })}
+              columnsClassName="grid-cols-2"
+            />
+          </div>
         </div>
       </div>
     </div>

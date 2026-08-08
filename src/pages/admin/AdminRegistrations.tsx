@@ -116,7 +116,17 @@ export function AdminRegistrations() {
               {rows.map((row, i) => (
                 <tr key={`${row.registrationId}-${i}`} className="hover:bg-brand-50/40">
                   <td className="px-3 py-2">
-                    <Badge tone={row.category === '대표' ? 'brand' : row.category === '성인' ? 'mint' : 'gray'}>
+                    <Badge
+                      tone={
+                        row.category === '대표'
+                          ? 'brand'
+                          : row.category === '성인'
+                            ? 'mint'
+                            : row.category === '취학'
+                              ? 'amber'
+                              : 'gray'
+                      }
+                    >
                       {row.category}
                     </Badge>
                   </td>

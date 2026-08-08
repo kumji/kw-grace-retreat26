@@ -132,7 +132,7 @@ export function AdminCheckin() {
                 <p className="text-xs font-semibold text-mint-700">성인</p>
                 {registration.adults.map((a, i) => (
                   <p key={i} className="text-sm text-gray-700">
-                    {a.name} · 숙박 {a.lodging}
+                    {a.name}
                   </p>
                 ))}
               </div>
@@ -143,7 +143,7 @@ export function AdminCheckin() {
                 <p className="text-xs font-semibold text-brand-700">자녀</p>
                 {registration.children.map((c, i) => (
                   <p key={i} className="text-sm text-gray-700">
-                    {c.name} · 만 {c.age}세 · 숙박 {c.lodging}
+                    {c.name} · 만 {c.age}세 · {c.schoolStatus}
                   </p>
                 ))}
               </div>

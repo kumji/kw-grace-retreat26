@@ -3,6 +3,7 @@ export type BloodType = 'A' | 'B' | 'O' | 'AB';
 export type LodgingOption = '침대방' | '온돌방' | '숙박안함';
 export type PaymentStatus = '입금전' | '입금완료';
 export type RegistrationState = '등록예정' | '등록중' | '등록마감';
+export type SchoolStatus = '취학' | '미취학';
 
 export interface FamilyAdult {
   name: string;
@@ -13,6 +14,7 @@ export interface FamilyAdult {
 export interface FamilyChild {
   name: string;
   age: number;
+  schoolStatus: SchoolStatus;
 }
 
 export interface Registration {
@@ -53,7 +55,8 @@ export interface Settings {
   regularStart: string;
   regularEnd: string;
   adultFee: number;
-  childFee: number;
+  schoolAgeChildFee: number;
+  preschoolChildFee: number;
   bankName: string;
   accountNumber: string;
   accountHolder: string;
