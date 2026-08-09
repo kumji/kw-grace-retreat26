@@ -96,7 +96,7 @@ export function RegistrationStatusTab() {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-3xl border border-brand-100 bg-brand-500 p-5 text-center text-white shadow-sm shadow-brand-100/40 sm:p-6">
+      <div className="rounded-3xl border border-brand-100 bg-[#a38e26] p-5 text-center text-white shadow-sm shadow-brand-100/40 sm:p-6">
         <p className="text-lg font-bold leading-snug sm:text-xl">
           현재까지 총 {total}명의 지체가 참여합니다.
           <br />더 많이 함께해요!
