@@ -26,7 +26,7 @@ export function LandingLayout() {
           </h1>
         </header>
 
-        <nav className="mb-6 grid grid-cols-2 gap-2 rounded-2xl bg-brand-100/60 p-1.5">
+        <nav className="mb-6 grid grid-cols-2 gap-2 rounded-2xl bg-autumn-100/60 p-1.5">
           {tabs.map((tab) => (
             <NavLink
               key={tab.to}
