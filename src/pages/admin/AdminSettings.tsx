@@ -224,6 +224,7 @@ export function AdminSettings() {
         />
       </Section>
 
+      
       <Section title="10. 등록 상태">
         <div className="grid grid-cols-3 gap-2">
           {registrationStateOptions.map((state) => (

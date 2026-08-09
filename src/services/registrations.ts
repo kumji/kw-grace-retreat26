@@ -60,7 +60,7 @@ export async function createRegistration(
 ): Promise<string> {
   const ref = doc(collection(db, COLLECTION));
   const totalCount = calcTotalCount(input.adults, input.children);
-  const amountDue = calcAmountDue(input.adults, input.children, settings);
+  const amountDue = calcAmountDue(input.affiliation, input.adults, input.children, settings);
 
   await withTimeout(
     setDoc(ref, {
@@ -149,7 +149,7 @@ export async function updateRegistration(
   settings: Pick<Settings, 'adultFee' | 'schoolAgeChildFee' | 'preschoolChildFee'>,
 ): Promise<void> {
   const totalCount = calcTotalCount(input.adults, input.children);
-  const amountDue = calcAmountDue(input.adults, input.children, settings);
+  const amountDue = calcAmountDue(input.affiliation, input.adults, input.children, settings);
 
   await withTimeout(
     updateDoc(doc(db, COLLECTION, id), {

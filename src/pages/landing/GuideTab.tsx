@@ -9,6 +9,7 @@ import { useSettings } from '@/hooks/useSettings';
 import { getRegistrationStatus, isEarlyBirdActive } from '@/lib/registrationState';
 import { findRegistrationByNamePhone } from '@/services/registrations';
 import { saveRegistrationId } from '@/lib/localRegistration';
+import { EVENT_SCHEDULE } from '@/lib/scheduleData';
 
 export function GuideTab() {
   const { settings, loading, error } = useSettings();
@@ -81,8 +82,31 @@ export function GuideTab() {
       </Card>
 
       <Card>
-        <h2 className="mb-2 text-sm font-bold text-brand-700">행사 시간표</h2>
-        <p className="text-sm text-gray-400">추후 업데이트 예정입니다.</p>
+        <h2 className="mb-3 text-sm font-bold text-brand-700">행사 시간표</h2>
+        <div className="space-y-4">
+          {EVENT_SCHEDULE.map((day, dayIdx) => (
+            <div key={dayIdx}>
+              <p className="mb-1.5 text-xs font-semibold text-mint-700">{day.day}</p>
+              <div className="space-y-2.5">
+                {day.items.map((item, itemIdx) => (
+                  <div key={itemIdx} className="flex gap-3 text-sm">
+                    <span className="w-28 shrink-0 whitespace-nowrap font-medium text-gray-500">
+                      {item.time}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-gray-700">{item.title}</p>
+                      {item.subtitle?.map((line, i) => (
+                        <p key={i} className="text-xs text-gray-400">
+                          {line}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </Card>
 
       <Card className="space-y-4">

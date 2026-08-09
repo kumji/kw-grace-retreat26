@@ -34,7 +34,7 @@ export function RegistrantForm({ initialValue, settings, submitLabel, submitting
   const [error, setError] = useState('');
 
   const totalCount = calcTotalCount(adults, children);
-  const amountDue = calcAmountDue(adults, children, settings);
+  const amountDue = calcAmountDue(affiliation, adults, children, settings);
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();

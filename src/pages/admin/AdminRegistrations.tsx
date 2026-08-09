@@ -11,7 +11,9 @@ import { exportRegistrationsToExcel } from '@/lib/exportExcel';
 import { affiliationOptions } from '@/lib/options';
 import type { Affiliation, Registration } from '@/types';
 
-const affiliationFilters: Array<Affiliation | '전체'> = ['전체', ...affiliationOptions];
+const affiliationFilters: Array<Affiliation | '소속 전체'> = ['소속 전체', ...affiliationOptions];
+const categoryFilters = ['분류 전체', '성인', '취학', '미취학'] as const;
+type CategoryFilter = (typeof categoryFilters)[number];
 
 export function AdminRegistrations() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,7 +21,8 @@ export function AdminRegistrations() {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [search, setSearch] = useState(searchParams.get('search') ?? '');
-  const [affiliation, setAffiliation] = useState<Affiliation | '전체'>('전체');
+  const [affiliation, setAffiliation] = useState<Affiliation | '소속 전체'>('소속 전체');
+  const [category, setCategory] = useState<CategoryFilter>('분류 전체');
 
   useEffect(() => {
     const unsubscribe = subscribeRegistrations(
@@ -45,7 +48,7 @@ export function AdminRegistrations() {
 
   const filtered = useMemo(() => {
     return registrations.filter((r) => {
-      const matchesAffiliation = affiliation === '전체' || r.affiliation === affiliation;
+      const matchesAffiliation = affiliation === '소속 전체' || r.affiliation === affiliation;
       const matchesSearch = !search.trim() || r.name.includes(search.trim());
       return matchesAffiliation && matchesSearch;
     });
@@ -53,6 +56,12 @@ export function AdminRegistrations() {
 
   const rows = useMemo(() => buildDisplayRows(filtered), [filtered]);
   const stats = useMemo(() => countMembers(filtered), [filtered]);
+
+  const filteredRows = useMemo(() => {
+    if (category === '분류 전체') return rows;
+    if (category === '성인') return rows.filter((r) => r.category === '대표' || r.category === '성인');
+    return rows.filter((r) => r.category === category);
+  }, [rows, category]);
 
   if (loading) {
     return <p className="py-20 text-center text-sm text-gray-400">불러오는 중...</p>;
@@ -67,7 +76,7 @@ export function AdminRegistrations() {
       <Card className="bg-brand-500 text-brand-600">
         <p className="text-sm font-medium text-gray-600">총 참가 인원</p>
         <p className="mt-1 text-2xl font-bold">
-          성인 {stats.adults}명 / 자녀 {stats.children}명 / 총 {stats.total}명
+          성인 {stats.adults}명 + 취학 {stats.schoolAged_children}명 + 미취학 {stats.preschoolAged_children}명  =  총 {stats.total}명
         </p>
       </Card>
 
@@ -81,12 +90,23 @@ export function AdminRegistrations() {
           />
           <Select
             value={affiliation}
-            onChange={(e) => setAffiliation(e.target.value as Affiliation | '전체')}
+            onChange={(e) => setAffiliation(e.target.value as Affiliation | '소속 전체')}
             className="sm:w-40"
           >
             {affiliationFilters.map((a) => (
               <option key={a} value={a}>
                 {a}
+              </option>
+            ))}
+          </Select>
+          <Select
+            value={category}
+            onChange={(e) => setCategory(e.target.value as CategoryFilter)}
+            className="sm:w-32"
+          >
+            {categoryFilters.map((c) => (
+              <option key={c} value={c}>
+                {c}
               </option>
             ))}
           </Select>
@@ -113,7 +133,7 @@ export function AdminRegistrations() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {rows.map((row, i) => (
+              {filteredRows.map((row, i) => (
                 <tr key={`${row.registrationId}-${i}`} className="hover:bg-brand-50/40">
                   <td className="px-3 py-2">
                     <Badge
@@ -142,7 +162,7 @@ export function AdminRegistrations() {
                   <td className="whitespace-nowrap px-3 py-2 text-gray-500">{row.etc}</td>
                 </tr>
               ))}
-              {rows.length === 0 && (
+              {filteredRows.length === 0 && (
                 <tr>
                   <td colSpan={11} className="px-3 py-10 text-center text-gray-400">
                     등록된 데이터가 없습니다.

@@ -74,8 +74,10 @@ export function buildDisplayRows(registrations: Registration[]): DisplayRow[] {
   return rows;
 }
 
-export function countMembers(registrations: Registration[]): { adults: number; children: number; total: number } {
+export function countMembers(registrations: Registration[]): { adults: number; schoolAged_children: number; preschoolAged_children: number; total: number } {
   const adults = registrations.reduce((sum, r) => sum + 1 + r.adults.length, 0);
-  const children = registrations.reduce((sum, r) => sum + r.children.length, 0);
-  return { adults, children, total: adults + children };
+  const schoolAged_children = registrations.reduce((sum, r) => sum + r.children.filter((c) => c.schoolStatus === '취학').length, 0);
+  const preschoolAged_children = registrations.reduce((sum, r) => sum + r.children.filter((c) => c.schoolStatus === '미취학').length, 0);
+
+  return { adults, schoolAged_children,preschoolAged_children, total: adults + schoolAged_children + preschoolAged_children };
 }
