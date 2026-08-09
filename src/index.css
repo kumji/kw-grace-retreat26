@@ -24,6 +24,18 @@
   --color-mint-700: #167066;
   --color-mint-800: #175951;
   --color-mint-900: #164a44;
+
+  /* 늦여름-가을 골드 톤 */
+  --color-autumn-50: #fdf8ec;
+  --color-autumn-100: #f8ecc9;
+  --color-autumn-200: #f0dfa0;
+  --color-autumn-300: #e0c078;
+  --color-autumn-400: #caa34f;
+  --color-autumn-500: #b8863f;
+  --color-autumn-600: #9c7530;
+  --color-autumn-700: #7d5d26;
+  --color-autumn-800: #63491e;
+  --color-autumn-900: #513c1a;
 }
 
 html,

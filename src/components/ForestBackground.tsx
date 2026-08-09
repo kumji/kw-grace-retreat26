@@ -11,7 +11,7 @@ export function ForestBackground() {
         <g className="animate-leaf-sway" style={{ transformOrigin: '10px 10px' }}>
           <path
             d="M10 10c40 0 70 20 90 60-45 5-80-15-95-45-3-6 0-15 5-15z"
-            fill="#86e6b3"
+            fill="#d6e686"
           />
           <path
             d="M10 10c30 10 50 30 65 55"
@@ -31,7 +31,7 @@ export function ForestBackground() {
         <g className="animate-leaf-sway" style={{ transformOrigin: '10px 10px', animationDelay: '-1.4s' }}>
           <path
             d="M10 10c40 0 70 20 90 60-45 5-80-15-95-45-3-6 0-15 5-15z"
-            fill="#71e2cd"
+            fill="#ce8f4f"
           />
         </g>
       </svg>
@@ -42,7 +42,7 @@ export function ForestBackground() {
         preserveAspectRatio="xMidYMax slice"
         fill="none"
       >
-        <g opacity=".45" fill="#a9f0e0">
+        <g opacity=".45" fill="#f0f0a9">
           <circle cx="120" cy="220" r="95" />
           <circle cx="330" cy="190" r="125" />
           <circle cx="620" cy="230" r="105" />
@@ -50,7 +50,7 @@ export function ForestBackground() {
           <circle cx="1180" cy="225" r="100" />
           <circle cx="1400" cy="200" r="115" />
         </g>
-        <g opacity=".75" fill="#86e6b3">
+        <g opacity=".75" fill="#e6e486">
           <circle cx="60" cy="265" r="75" />
           <circle cx="250" cy="248" r="100" />
           <circle cx="480" cy="275" r="85" />
@@ -59,7 +59,7 @@ export function ForestBackground() {
           <circle cx="1220" cy="250" r="105" />
           <circle cx="1420" cy="275" r="80" />
         </g>
-        <g fill="#22b872">
+        <g fill="#caa34f">
           <circle cx="150" cy="305" r="58" />
           <circle cx="380" cy="298" r="74" />
           <circle cx="600" cy="310" r="62" />
