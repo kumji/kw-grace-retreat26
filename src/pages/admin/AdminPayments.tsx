@@ -9,8 +9,8 @@ import { formatCurrency } from '@/lib/calc';
 import { affiliationOptions } from '@/lib/options';
 import type { Affiliation, PaymentStatus, Registration } from '@/types';
 
-const affiliationFilters: Array<Affiliation | '전체'> = ['전체', ...affiliationOptions];
-const paymentFilters: Array<PaymentStatus | '전체'> = ['전체', '입금전', '입금완료'];
+const affiliationFilters: Array<Affiliation | '소속 전체'> = ['소속 전체', ...affiliationOptions];
+const paymentFilters: Array<PaymentStatus | '입금상태 전체'> = ['입금상태 전체', '입금전', '입금완료'];
 
 export function AdminPayments() {
   const navigate = useNavigate();
@@ -18,8 +18,8 @@ export function AdminPayments() {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [search, setSearch] = useState('');
-  const [affiliation, setAffiliation] = useState<Affiliation | '전체'>('전체');
-  const [paymentFilter, setPaymentFilter] = useState<PaymentStatus | '전체'>('전체');
+  const [affiliation, setAffiliation] = useState<Affiliation | '소속 전체'>('소속 전체');
+  const [paymentFilter, setPaymentFilter] = useState<PaymentStatus | '입금상태 전체'>('입금상태 전체');
   const [updatingId, setUpdatingId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -38,8 +38,8 @@ export function AdminPayments() {
 
   const filtered = useMemo(() => {
     return registrations.filter((r) => {
-      const matchesAffiliation = affiliation === '전체' || r.affiliation === affiliation;
-      const matchesPayment = paymentFilter === '전체' || r.paymentStatus === paymentFilter;
+      const matchesAffiliation = affiliation === '소속 전체' || r.affiliation === affiliation;
+      const matchesPayment = paymentFilter === '입금상태 전체' || r.paymentStatus === paymentFilter;
       const matchesSearch = !search.trim() || r.name.includes(search.trim());
       return matchesAffiliation && matchesPayment && matchesSearch;
     });
@@ -108,7 +108,7 @@ export function AdminPayments() {
           />
           <Select
             value={affiliation}
-            onChange={(e) => setAffiliation(e.target.value as Affiliation | '전체')}
+            onChange={(e) => setAffiliation(e.target.value as Affiliation | '소속 전체')}
             className="sm:w-36"
           >
             {affiliationFilters.map((a) => (
@@ -119,7 +119,7 @@ export function AdminPayments() {
           </Select>
           <Select
             value={paymentFilter}
-            onChange={(e) => setPaymentFilter(e.target.value as PaymentStatus | '전체')}
+            onChange={(e) => setPaymentFilter(e.target.value as PaymentStatus | '입금상태 전체')}
             className="sm:w-36"
           >
             {paymentFilters.map((p) => (
@@ -134,7 +134,7 @@ export function AdminPayments() {
           <table className="w-full min-w-[720px] text-left text-sm">
             <thead className="bg-gray-50 text-xs text-gray-500">
               <tr>
-                {['등록자', '소속', '등록 인원', '등록비', '입금 여부', '등록자 정보', '입금 확인'].map((h) => (
+                {['등록자', '소속', '등록 인원', '등록비', '입금 여부', '입금 확인', '등록자 정보'].map((h) => (
                   <th key={h} className="whitespace-nowrap px-3 py-2 font-semibold">
                     {h}
                   </th>
@@ -156,11 +156,6 @@ export function AdminPayments() {
                     </span>
                   </td>
                   <td className="whitespace-nowrap px-3 py-2">
-                    <Button variant="ghost" size="sm" onClick={() => goToRegistration(r.name)}>
-                      등록자 정보
-                    </Button>
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-2">
                     <Button
                       size="sm"
                       variant={r.paymentStatus === '입금완료' ? 'outline' : 'primary'}
@@ -168,6 +163,11 @@ export function AdminPayments() {
                       onClick={() => handleTogglePayment(r)}
                     >
                       {r.paymentStatus === '입금완료' ? '취소하기' : '입금 확인'}
+                    </Button>
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-2">
+                    <Button variant="ghost" size="sm" onClick={() => goToRegistration(r.name)}>
+                      등록자 정보
                     </Button>
                   </td>
                 </tr>
