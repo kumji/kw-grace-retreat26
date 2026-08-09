@@ -58,6 +58,12 @@ export function GuideTab() {
 
   return (
     <div className="space-y-4">
+      <img
+        src={`${import.meta.env.BASE_URL}img/1.png`}
+        alt="광림교회 2026 청장년부 가을영성수련회"
+        className="w-full rounded-3xl object-cover"
+      />
+
       {settings.notice && (
         <Card>
           <h2 className="mb-2 text-sm font-bold text-brand-700">공지사항</h2>
