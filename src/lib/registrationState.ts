@@ -55,7 +55,7 @@ export function getRegistrationStatus(settings: Settings): RegistrationStatus {
     return { canRegister: false, phase: 'pending', message: '등록 예정입니다.' };
   }
   if (settings.registrationState === '등록마감') {
-    return { canRegister: false, phase: 'closed', message: '등록가 마감되었습니다.' };
+    return { canRegister: false, phase: 'closed', message: '등록이 마감되었습니다.' };
   }
 
   const date = todayISO();
@@ -75,5 +75,5 @@ export function getRegistrationStatus(settings: Settings): RegistrationStatus {
     return { canRegister: false, phase: 'pending', message: '등록 예정입니다.' };
   }
 
-  return { canRegister: false, phase: 'closed', message: '등록가 마감되었습니다.' };
+  return { canRegister: false, phase: 'closed', message: '등록이 마감되었습니다.' };
 }

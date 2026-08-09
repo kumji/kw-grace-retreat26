@@ -43,7 +43,7 @@ export function TopTimerBar() {
   }
 
   return (
-    <div className="sticky top-0 z-50 flex h-9 items-center justify-center bg-brand-700 px-4 text-center sm:h-10">
+    <div className="sticky top-0 z-50 flex h-9 items-center justify-center bg-[#d4853b] px-4 text-center sm:h-10">
       <p className="truncate text-xs font-medium text-white sm:text-sm">{message}</p>
     </div>
   );
