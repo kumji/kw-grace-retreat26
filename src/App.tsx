@@ -5,6 +5,8 @@ import { LandingLayout } from '@/pages/landing/LandingLayout';
 import { GuideTab } from '@/pages/landing/GuideTab';
 import { RegisterTab } from '@/pages/landing/RegisterTab';
 import { LookupTab } from '@/pages/landing/LookupTab';
+import { RegistrationStatusTab } from '@/pages/landing/RegistrationStatusTab';
+import { ProgramSignupTab } from '@/pages/landing/ProgramSignupTab';
 
 const AdminLayout = lazy(() => import('@/pages/admin/AdminLayout').then((m) => ({ default: m.AdminLayout })));
 const AdminLogin = lazy(() => import('@/pages/admin/AdminLogin').then((m) => ({ default: m.AdminLogin })));
@@ -34,6 +36,8 @@ export default function App() {
           <Route index element={<GuideTab />} />
           <Route path="register" element={<RegisterTab />} />
           <Route path="lookup" element={<LookupTab />} />
+          <Route path="status" element={<RegistrationStatusTab />} />
+          <Route path="programs" element={<ProgramSignupTab />} />
         </Route>
 
         <Route
