@@ -39,7 +39,7 @@ export function AdminLogin() {
       <Card className="w-full max-w-sm animate-fade-in-up">
         <h1 className="mb-1 text-center text-lg font-bold text-brand-800">관리자 로그인</h1>
         <p className="mb-6 text-center text-sm text-gray-400">
-          광림교회 청장년부 2026 영성수련회
+          광림교회 2026 청장년부 가을영성수련회
         </p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
