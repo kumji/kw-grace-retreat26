@@ -11,17 +11,18 @@ export function LandingLayout() {
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-brand-50 via-white to-white">
       <ForestBackground />
       <div className="relative z-10 mx-auto max-w-3xl px-4 pb-16 pt-8 sm:px-6">
-        <header className="relative mb-6 text-center">
-          <NavLink
-            to="/admin"
-            className="absolute right-0 top-0 text-xs font-medium text-gray-400 hover:text-brand-600"
-          >
-            관리자 페이지
-          </NavLink>
+        <NavLink
+          to="/admin"
+          className="absolute right-4 top-4 text-xs font-medium text-gray-400 hover:text-brand-600 sm:right-6 sm:top-6"
+        >
+          관리자 페이지
+        </NavLink>
+
+        <header className="mb-6 text-center">
           <h1 className="mx-auto max-w-xs text-xl font-bold leading-snug text-brand-800 sm:max-w-none sm:text-2xl">
-            광림교회 청장년부
+            광림교회 2026 청장년부
             <br />
-            2026 영성수련회
+            가을영성수련회
           </h1>
         </header>
 
