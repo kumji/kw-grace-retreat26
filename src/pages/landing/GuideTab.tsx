@@ -59,9 +59,17 @@ export function GuideTab() {
   return (
     <div className="space-y-4">
       <img
-        src={`${import.meta.env.BASE_URL}img/1.png`}
+        src={`${import.meta.env.BASE_URL}img/1-960w.webp`}
+        srcSet={[640, 960, 1280, 1600]
+          .map((w) => `${import.meta.env.BASE_URL}img/1-${w}w.webp ${w}w`)
+          .join(', ')}
+        sizes="(min-width: 768px) 768px, 100vw"
         alt="광림교회 2026 청장년부 가을영성수련회"
         className="w-full rounded-3xl object-cover"
+        width={1280}
+        height={1764}
+        fetchPriority="high"
+        decoding="async"
       />
 
       {settings.notice && (
