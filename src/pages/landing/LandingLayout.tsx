@@ -4,6 +4,8 @@ import { ForestBackground } from '@/components/ForestBackground';
 const tabs = [
   { to: '/', label: '수련회 안내 및 등록', end: true },
   { to: '/lookup', label: '등록 확인/수정/취소', end: false },
+  { to: '/status', label: '수련회 등록 현황', end: false },
+  { to: '/programs', label: '선택 프로그램 신청', end: false },
 ];
 
 export function LandingLayout() {

@@ -73,12 +73,12 @@ export function AdminRegistrations() {
 
   return (
     <div className="space-y-4">
-      <Card className="bg-brand-500 text-brand-600">
-        <p className="text-sm font-medium text-gray-600">총 참가 인원</p>
-        <p className="mt-1 text-2xl font-bold">
+      <div className="rounded-3xl border border-brand-100 bg-brand-500 p-5 text-white shadow-sm shadow-brand-100/40 sm:p-6">
+        <p className="text-sm font-medium text-white/90">총 참가 인원</p>
+        <p className="mt-1 text-2xl font-bold text-white">
           성인 {stats.adults}명 + 취학 {stats.schoolAged_children}명 + 미취학 {stats.preschoolAged_children}명  =  총 {stats.total}명
         </p>
-      </Card>
+      </div>
 
       <Card className="space-y-3">
         <div className="flex flex-col gap-3 sm:flex-row">
@@ -144,7 +144,7 @@ export function AdminRegistrations() {
                             ? 'mint'
                             : row.category === '취학'
                               ? 'amber'
-                              : 'gray'
+                              : 'rose'
                       }
                     >
                       {row.category}
