@@ -40,6 +40,7 @@ export function LookupTab() {
 
   const [saving, setSaving] = useState(false);
   const [cancelling, setCancelling] = useState(false);
+  const [accountCopied, setAccountCopied] = useState(false);
 
   useEffect(() => {
     if (!regId) {
@@ -103,6 +104,16 @@ export function LookupTab() {
     setSearchPhone('');
     setSearchError('');
     setMode('search');
+  }
+
+  async function handleCopyAccountNumber() {
+    try {
+      await navigator.clipboard.writeText(settings.accountNumber);
+      setAccountCopied(true);
+      setTimeout(() => setAccountCopied(false), 2000);
+    } catch {
+      // clipboard access denied or unavailable; silently ignore
+    }
   }
 
   async function handleCancelRegistration() {
@@ -252,10 +263,26 @@ export function LookupTab() {
       <Card className="space-y-3">
         <h2 className="text-base font-bold text-brand-800">입금 안내</h2>
         <div className="rounded-2xl bg-mint-50 p-4 text-sm text-mint-900">
-          <p className="font-semibold">입금 계좌</p>
-          <p>{settings.bankName}</p>
-          <p>{settings.accountNumber}</p>
-          <p>예금주 : {settings.accountHolder}</p>
+          <div className="flex items-stretch justify-between gap-3">
+            <div>
+              <p className="font-semibold">입금 계좌: {settings.bankName} {settings.accountNumber}</p>
+              <p>예금주 : {settings.accountHolder}</p>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="shrink-0 self-stretch"
+              onClick={handleCopyAccountNumber}
+            >
+              복사하기
+            </Button>
+          </div>
+          {accountCopied && (
+            <p className="mt-2 animate-fade-in-up text-xs font-semibold text-brand-600">
+              계좌번호가 복사되었습니다.
+            </p>
+          )}
         </div>
         <p className="text-sm text-gray-500">총 참가 인원 : {registration.totalCount}명</p>
         <p className="text-lg font-bold text-brand-700">{formatCurrency(registration.amountDue)}</p>
