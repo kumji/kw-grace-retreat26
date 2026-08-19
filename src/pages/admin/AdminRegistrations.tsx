@@ -47,11 +47,13 @@ export function AdminRegistrations() {
   }, [search]);
 
   const filtered = useMemo(() => {
-    return registrations.filter((r) => {
-      const matchesAffiliation = affiliation === '소속 전체' || r.affiliation === affiliation;
-      const matchesSearch = !search.trim() || r.name.includes(search.trim());
-      return matchesAffiliation && matchesSearch;
-    });
+    return registrations
+      .filter((r) => {
+        const matchesAffiliation = affiliation === '소속 전체' || r.affiliation === affiliation;
+        const matchesSearch = !search.trim() || r.name.includes(search.trim());
+        return matchesAffiliation && matchesSearch;
+      })
+      .sort((a, b) => a.name.localeCompare(b.name, 'ko'));
   }, [registrations, affiliation, search]);
 
   const rows = useMemo(() => buildDisplayRows(filtered), [filtered]);

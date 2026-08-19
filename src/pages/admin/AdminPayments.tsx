@@ -37,12 +37,14 @@ export function AdminPayments() {
   }, []);
 
   const filtered = useMemo(() => {
-    return registrations.filter((r) => {
-      const matchesAffiliation = affiliation === '소속 전체' || r.affiliation === affiliation;
-      const matchesPayment = paymentFilter === '입금상태 전체' || r.paymentStatus === paymentFilter;
-      const matchesSearch = !search.trim() || r.name.includes(search.trim());
-      return matchesAffiliation && matchesPayment && matchesSearch;
-    });
+    return registrations
+      .filter((r) => {
+        const matchesAffiliation = affiliation === '소속 전체' || r.affiliation === affiliation;
+        const matchesPayment = paymentFilter === '입금상태 전체' || r.paymentStatus === paymentFilter;
+        const matchesSearch = !search.trim() || r.name.includes(search.trim());
+        return matchesAffiliation && matchesPayment && matchesSearch;
+      })
+      .sort((a, b) => a.name.localeCompare(b.name, 'ko'));
   }, [registrations, affiliation, paymentFilter, search]);
 
   const stats = useMemo(() => {
