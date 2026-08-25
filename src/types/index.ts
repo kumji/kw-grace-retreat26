@@ -64,4 +64,17 @@ export interface Settings {
   notice: string;
   guideText: string;
   registrationState: RegistrationState;
+  programSignupStart: string;
+  programSignupEnd: string;
 }
+
+export interface ProgramSignup {
+  id: string;
+  programId: string;
+  slotId: string;
+  name: string;
+  affiliation: Affiliation;
+  createdAt: number;
+}
+
+export type ProgramSignupInput = Pick<ProgramSignup, 'programId' | 'slotId' | 'name' | 'affiliation'>;

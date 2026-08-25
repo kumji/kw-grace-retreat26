@@ -36,5 +36,11 @@ service cloud.firestore {
       allow read: if true;
       allow write: if isAdmin();
     }
+
+    match /programSignups/{signupId} {
+      // 선택 프로그램 신청도 계정 없이 이름/소속만으로 등록·취소하는 동일한 방식.
+      allow read, create, delete: if true;
+      allow update: if false;
+    }
   }
 }

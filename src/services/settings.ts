@@ -20,6 +20,8 @@ export const defaultSettings: Settings = {
   notice: '',
   guideText: '',
   registrationState: '등록예정',
+  programSignupStart: '',
+  programSignupEnd: '',
 };
 
 export async function getSettings(): Promise<Settings> {

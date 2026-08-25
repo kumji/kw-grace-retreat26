@@ -224,8 +224,33 @@ export function AdminSettings() {
         />
       </Section>
 
-      
-      <Section title="10. 등록 상태">
+      <Section title="10. 선택 프로그램 신청 가능 시간">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div>
+            <Label htmlFor="program-signup-start">시작 시각</Label>
+            <Input
+              id="program-signup-start"
+              type="datetime-local"
+              value={draft.programSignupStart}
+              onChange={(e) => update('programSignupStart', e.target.value)}
+            />
+          </div>
+          <div>
+            <Label htmlFor="program-signup-end">종료 시각</Label>
+            <Input
+              id="program-signup-end"
+              type="datetime-local"
+              value={draft.programSignupEnd}
+              onChange={(e) => update('programSignupEnd', e.target.value)}
+            />
+          </div>
+        </div>
+        <p className="mt-3 text-xs text-gray-400">
+          이 시간 동안만 선택 프로그램 탭에서 선착순 등록이 가능합니다. 그 외 시간에는 모든 등록 버튼이 '대기중'으로 비활성화됩니다.
+        </p>
+      </Section>
+
+      <Section title="11. 등록 상태">
         <div className="grid grid-cols-3 gap-2">
           {registrationStateOptions.map((state) => (
             <button

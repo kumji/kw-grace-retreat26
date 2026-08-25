@@ -22,6 +22,21 @@ export function isEarlyBirdActive(settings: Pick<Settings, 'earlyBirdStart' | 'e
   return isWithin(todayISO(), settings.earlyBirdStart, settings.earlyBirdEnd);
 }
 
+function nowLocalMinuteISO(): string {
+  const now = new Date();
+  const tzOffsetMs = now.getTimezoneOffset() * 60000;
+  return new Date(now.getTime() - tzOffsetMs).toISOString().slice(0, 16);
+}
+
+// 선택 프로그램 신청은 별도의 선착순 접수 시각(관리자 설정)으로 열리고 닫힌다.
+export function isProgramSignupActive(
+  settings: Pick<Settings, 'programSignupStart' | 'programSignupEnd'>,
+): boolean {
+  if (!settings.programSignupStart || !settings.programSignupEnd) return false;
+  const now = nowLocalMinuteISO();
+  return now >= settings.programSignupStart && now <= settings.programSignupEnd;
+}
+
 export function formatMonthDay(dateISO: string): string {
   if (!dateISO) return '';
   const [, month, day] = dateISO.split('-').map(Number);
