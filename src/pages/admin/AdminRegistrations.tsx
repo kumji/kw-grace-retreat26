@@ -127,7 +127,7 @@ export function AdminRegistrations() {
               <tr>
                 {['분류', '등록자', '이름', '소속', '연락처', '생년월', '혈액형', '숙박', '구분', '입금', '체크인', '기타'].map(
                   (h) => (
-                    <th key={h} className="whitespace-nowrap px-3 py-2 font-semibold">
+                    <th key={h} className="whitespace-nowrap px-2 py-2 font-semibold">
                       {h}
                     </th>
                   ),
@@ -137,7 +137,7 @@ export function AdminRegistrations() {
             <tbody className="divide-y divide-gray-50">
               {filteredRows.map((row, i) => (
                 <tr key={`${row.registrationId}-${i}`} className="hover:bg-brand-50/40">
-                  <td className="px-3 py-2">
+                  <td className="px-2 py-2">
                     <Badge
                       tone={
                         row.category === '대표'
