@@ -198,6 +198,8 @@ export function LookupTab() {
     );
   }
 
+  const isEarlyBirdRegistration = registration.earlyBirdEligible;
+
   return (
     <div className="space-y-4">
       {justRegistered && (
@@ -215,7 +217,12 @@ export function LookupTab() {
       <Card className="space-y-3">
         <div className="flex items-center justify-between">
           <h2 className="text-base font-bold text-brand-800">등록 정보</h2>
-          <Badge tone="gray">{registration.affiliation}</Badge>
+          <div className="flex gap-1.5">
+            <Badge tone={isEarlyBirdRegistration ? 'mint' : 'gray'}>
+              {isEarlyBirdRegistration ? '얼리버드' : '일반'}
+            </Badge>
+            <Badge tone="gray">{registration.affiliation}</Badge>
+          </div>
         </div>
         <dl className="grid grid-cols-2 gap-y-2 text-sm">
           <dt className="text-gray-400">이름</dt>

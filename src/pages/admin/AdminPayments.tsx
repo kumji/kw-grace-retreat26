@@ -7,6 +7,7 @@ import { Input, Select } from '@/components/ui/Field';
 import { subscribeRegistrations, setPaymentStatus } from '@/services/registrations';
 import { formatCurrency } from '@/lib/calc';
 import { affiliationOptions } from '@/lib/options';
+import { useSettings } from '@/hooks/useSettings';
 import type { Affiliation, PaymentStatus, Registration } from '@/types';
 
 const affiliationFilters: Array<Affiliation | '소속 전체'> = ['소속 전체', ...affiliationOptions];
@@ -14,6 +15,7 @@ const paymentFilters: Array<PaymentStatus | '입금상태 전체'> = ['입금상
 
 export function AdminPayments() {
   const navigate = useNavigate();
+  const { settings } = useSettings();
   const [registrations, setRegistrations] = useState<Registration[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
@@ -62,7 +64,12 @@ export function AdminPayments() {
   async function handleTogglePayment(r: Registration) {
     setUpdatingId(r.id);
     try {
-      await setPaymentStatus(r.id, r.paymentStatus === '입금완료' ? '입금전' : '입금완료');
+      await setPaymentStatus(
+        r.id,
+        r.paymentStatus === '입금완료' ? '입금전' : '입금완료',
+        r.createdAt,
+        settings,
+      );
     } finally {
       setUpdatingId(null);
     }

@@ -1,6 +1,7 @@
 import type { Affiliation, BloodType, LodgingOption, PaymentStatus, Registration } from '@/types';
 
 export type RowCategory = '대표' | '성인' | '취학' | '미취학';
+export type RegistrationPhaseLabel = '얼리버드' | '일반';
 
 export interface DisplayRow {
   registrationId: string;
@@ -14,6 +15,7 @@ export interface DisplayRow {
   lodging: LodgingOption;
   paymentStatus: PaymentStatus;
   checkedIn: boolean;
+  registrationPhase: RegistrationPhaseLabel;
   etc: string;
 }
 
@@ -21,6 +23,8 @@ export function buildDisplayRows(registrations: Registration[]): DisplayRow[] {
   const rows: DisplayRow[] = [];
 
   for (const r of registrations) {
+    const registrationPhase: RegistrationPhaseLabel = r.earlyBirdEligible ? '얼리버드' : '일반';
+
     rows.push({
       registrationId: r.id,
       category: '대표',
@@ -33,6 +37,7 @@ export function buildDisplayRows(registrations: Registration[]): DisplayRow[] {
       lodging: r.lodging,
       paymentStatus: r.paymentStatus,
       checkedIn: r.checkedIn,
+      registrationPhase,
       etc: '',
     });
 
@@ -49,6 +54,7 @@ export function buildDisplayRows(registrations: Registration[]): DisplayRow[] {
         lodging: r.lodging,
         paymentStatus: r.paymentStatus,
         checkedIn: r.checkedIn,
+        registrationPhase,
         etc: '',
       });
     }
@@ -66,6 +72,7 @@ export function buildDisplayRows(registrations: Registration[]): DisplayRow[] {
         lodging: r.lodging,
         paymentStatus: r.paymentStatus,
         checkedIn: r.checkedIn,
+        registrationPhase,
         etc: `나이 : 만 ${child.age}세`,
       });
     }

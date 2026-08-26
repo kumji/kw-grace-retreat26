@@ -31,6 +31,9 @@ export interface Registration {
   totalCount: number;
   amountDue: number;
   paymentStatus: PaymentStatus;
+  // 얼리버드 혜택 대상 여부는 등록 시점에 한 번 확정되면 이후 입금 상태가 바뀌어도 다시 계산하지 않는다.
+  // (마감을 넘겨서 입금하는 사람이 나중에 자동으로 얼리버드가 되는 것을 막기 위함)
+  earlyBirdEligible: boolean;
   checkedIn: boolean;
   checkedInAt: number | null;
   createdAt: number;
@@ -43,6 +46,7 @@ export type RegistrationInput = Omit<
   | 'totalCount'
   | 'amountDue'
   | 'paymentStatus'
+  | 'earlyBirdEligible'
   | 'checkedIn'
   | 'checkedInAt'
   | 'createdAt'

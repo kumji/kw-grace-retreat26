@@ -29,7 +29,7 @@ service cloud.firestore {
       // and check-in state can only change through an authenticated admin.
       allow update: if isAdmin() ||
         !request.resource.data.diff(resource.data).affectedKeys()
-          .hasAny(['paymentStatus', 'checkedIn', 'checkedInAt']);
+          .hasAny(['paymentStatus', 'earlyBirdEligible', 'checkedIn', 'checkedInAt']);
     }
 
     match /settings/{settingsId} {

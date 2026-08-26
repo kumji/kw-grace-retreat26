@@ -122,10 +122,10 @@ export function AdminRegistrations() {
         </div>
 
         <div className="overflow-x-auto rounded-2xl border border-gray-100">
-          <table className="w-full min-w-[820px] text-left text-sm">
+          <table className="w-full min-w-[900px] text-left text-sm">
             <thead className="bg-gray-50 text-xs text-gray-500">
               <tr>
-                {['분류', '등록자', '이름', '소속', '연락처', '생년월', '혈액형', '숙박', '입금', '체크인', '기타'].map(
+                {['분류', '등록자', '이름', '소속', '연락처', '생년월', '혈액형', '숙박', '구분', '입금', '체크인', '기타'].map(
                   (h) => (
                     <th key={h} className="whitespace-nowrap px-3 py-2 font-semibold">
                       {h}
@@ -159,6 +159,11 @@ export function AdminRegistrations() {
                   <td className="whitespace-nowrap px-3 py-2">{row.birthMonth === '' ? '' : `${row.birthMonth}월`}</td>
                   <td className="whitespace-nowrap px-3 py-2">{row.bloodType}</td>
                   <td className="whitespace-nowrap px-3 py-2">{row.lodging}</td>
+                  <td className="whitespace-nowrap px-3 py-2">
+                    <Badge tone={row.registrationPhase === '얼리버드' ? 'mint' : 'gray'}>
+                      {row.registrationPhase}
+                    </Badge>
+                  </td>
                   <td className="whitespace-nowrap px-3 py-2">{row.paymentStatus}</td>
                   <td className="whitespace-nowrap px-3 py-2">{row.checkedIn ? 'O' : 'X'}</td>
                   <td className="whitespace-nowrap px-3 py-2 text-gray-500">{row.etc}</td>
@@ -166,7 +171,7 @@ export function AdminRegistrations() {
               ))}
               {filteredRows.length === 0 && (
                 <tr>
-                  <td colSpan={11} className="px-3 py-10 text-center text-gray-400">
+                  <td colSpan={12} className="px-3 py-10 text-center text-gray-400">
                     등록된 데이터가 없습니다.
                   </td>
                 </tr>

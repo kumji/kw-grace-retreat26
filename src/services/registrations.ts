@@ -19,6 +19,7 @@ import { db } from './firebase';
 import { calcAmountDue, calcTotalCount } from '@/lib/calc';
 import { guardSnapshotTimeout, withTimeout } from '@/lib/timeout';
 import { normalizePhone } from '@/lib/phone';
+import { isEarlyBirdEligible } from '@/lib/registrationState';
 import type { Registration, RegistrationInput, Settings } from '@/types';
 
 const COLLECTION = 'registrations';
@@ -47,6 +48,7 @@ function docToRegistration(
     totalCount: data.totalCount,
     amountDue: data.amountDue,
     paymentStatus: data.paymentStatus,
+    earlyBirdEligible: data.earlyBirdEligible ?? false,
     checkedIn: data.checkedIn ?? false,
     checkedInAt: toMillis(data.checkedInAt),
     createdAt: toMillis(data.createdAt) ?? Date.now(),
@@ -69,6 +71,7 @@ export async function createRegistration(
       totalCount,
       amountDue,
       paymentStatus: '입금전',
+      earlyBirdEligible: false,
       checkedIn: false,
       checkedInAt: null,
       createdAt: serverTimestamp(),
@@ -169,9 +172,20 @@ export async function deleteRegistration(id: string): Promise<void> {
 export async function setPaymentStatus(
   id: string,
   paymentStatus: Registration['paymentStatus'],
+  registrationCreatedAt: number,
+  settings: Pick<Settings, 'earlyBirdEnd'>,
 ): Promise<void> {
   await withTimeout(
-    updateDoc(doc(db, COLLECTION, id), { paymentStatus, updatedAt: serverTimestamp() }),
+    updateDoc(doc(db, COLLECTION, id), {
+      paymentStatus,
+      // 입금완료로 바뀌는 이 순간을 기준으로 얼리버드 대상 여부를 확정해 저장한다.
+      // 이후 입금 상태가 다시 바뀌어도 이 값은 여기서만 갱신되므로, 마감을 넘겨 입금 확인을 누르면
+      // 영구히 '일반'으로 고정된다.
+      earlyBirdEligible:
+        paymentStatus === '입금완료' &&
+        isEarlyBirdEligible({ createdAt: registrationCreatedAt }, settings),
+      updatedAt: serverTimestamp(),
+    }),
   );
 }
 
