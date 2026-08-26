@@ -58,7 +58,8 @@ export function AdminPayments() {
     const paidAmount = filtered
       .filter((r) => r.paymentStatus === '입금완료')
       .reduce((sum, r) => sum + r.amountDue, 0);
-    return { totalRegistrants, paidRegistrants, pendingAmount, paidAmount };
+    const totalAmount = paidAmount + pendingAmount;
+    return { totalRegistrants, paidRegistrants, pendingAmount, paidAmount, totalAmount };
   }, [filtered]);
 
   async function handleTogglePayment(r: Registration) {
@@ -102,7 +103,10 @@ export function AdminPayments() {
             입금 완료 <span className="font-bold text-brand-700">{formatCurrency(stats.paidAmount)}</span>
           </p>
           <p className="mt-1 text-sm text-gray-500">
-            총액 <span className="font-bold text-gray-700">{formatCurrency(stats.pendingAmount)}</span>
+            미입금 <span className="font-bold text-gray-500">{formatCurrency(stats.pendingAmount)}</span>
+          </p>
+          <p className="mt-1 text-sm text-gray-500">
+            총액 <span className="font-bold text-gray-700">{formatCurrency(stats.totalAmount)}</span>
           </p>
         </Card>
       </div>
