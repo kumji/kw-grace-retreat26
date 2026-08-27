@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import type { ProgramDef } from '@/lib/programData';
 import type { Affiliation } from '@/types';
+
+const DETAIL_CLAMP_THRESHOLD = 60;
 
 export interface SlotStatus {
   count: number;
@@ -35,6 +38,9 @@ export function ProgramBlock({
   onRegister,
   onCancel,
 }: Props) {
+  const [detailExpanded, setDetailExpanded] = useState(false);
+  const detailIsLong = program.detail.length > DETAIL_CLAMP_THRESHOLD;
+
   return (
     <Card className="space-y-3">
       <button
@@ -47,9 +53,28 @@ export function ProgramBlock({
           <p className="text-xs text-gray-400">모임장소: {program.location}</p>
         </div>
         <span className="mt-1 shrink-0 text-xs font-medium text-gray-400">
-          {expanded ? '접기 ▲' : '명단 보기 ▼'}
+          {expanded ? '명단 접기 ▲' : '명단 보기 ▼'}
         </span>
       </button>
+
+      {program.detail && (
+        <div className="border-l-2 border-brand-100 pl-3">
+          <p
+            className={`text-sm leading-relaxed text-gray-600 ${detailExpanded ? '' : 'line-clamp-2'}`}
+          >
+            {program.detail}
+          </p>
+          {detailIsLong && (
+            <button
+              type="button"
+              onClick={() => setDetailExpanded((v) => !v)}
+              className="mt-1 text-xs font-semibold text-brand-500 hover:text-brand-700"
+            >
+              {detailExpanded ? '간략히 보기 ▲' : '자세히 보기 ▼'}
+            </button>
+          )}
+        </div>
+      )}
 
       <div className="space-y-2">
         {program.slots.map((slot) => {
