@@ -66,7 +66,7 @@ export const PROGRAMS: ProgramDef[] = [
       {
         id: 'time1',
         label: '타임1',
-        capacity: 5,
+        capacity: 4,
         unitLabel: '부부',
         allowedAffiliations: ['청장2부'],
         note: '부부 신청 · 청장2부만 신청 가능',
@@ -74,7 +74,7 @@ export const PROGRAMS: ProgramDef[] = [
       {
         id: 'time2',
         label: '타임2',
-        capacity: 8,
+        capacity: 6,
         unitLabel: '명',
         allowedAffiliations: ['청장1부'],
         note: '개인 신청 · 청장1부만 신청 가능',
