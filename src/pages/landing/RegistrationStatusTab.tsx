@@ -109,7 +109,7 @@ export function RegistrationStatusTab() {
       </Card>
 
       <Card>
-        <h2 className="mb-3 text-sm font-bold text-brand-700">청장1부 / 청장2부 / 지성전</h2>
+        <h2 className="mb-3 text-sm font-bold text-brand-700">청장1부 / 청장2부 / 광림남교회</h2>
         <BarChart items={affiliationStats} />
       </Card>
 

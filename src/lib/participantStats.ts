@@ -29,14 +29,14 @@ export function getMemberTypeStats(registrations: Registration[]): StatItem[] {
 }
 
 export function getAffiliationStats(registrations: Registration[]): StatItem[] {
-  const counts: Record<Affiliation, number> = { 청장1부: 0, 청장2부: 0, 지성전: 0 };
+  const counts: Record<Affiliation, number> = { 청장1부: 0, 청장2부: 0, 광림남교회: 0 };
   for (const r of registrations) {
     counts[r.affiliation] += r.totalCount;
   }
   return [
     { label: '청장1부', value: counts['청장1부'], color: '#22b872' },
     { label: '청장2부', value: counts['청장2부'], color: '#0ea5e9' },
-    { label: '지성전', value: counts['지성전'], color: '#8b5cf6' },
+    { label: '광림남교회', value: counts['광림남교회'], color: '#8b5cf6' },
   ];
 }
 

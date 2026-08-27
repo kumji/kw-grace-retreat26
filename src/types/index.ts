@@ -1,4 +1,4 @@
-export type Affiliation = '청장1부' | '청장2부' | '지성전';
+export type Affiliation = '청장1부' | '청장2부' | '광림남교회';
 export type BloodType = 'A' | 'B' | 'O' | 'AB';
 export type LodgingOption = '침대방' | '온돌방' | '숙박안함';
 export type PaymentStatus = '입금전' | '입금완료';

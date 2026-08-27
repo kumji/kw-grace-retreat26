@@ -4,7 +4,7 @@ export function calcTotalCount(adults: FamilyAdult[], children: FamilyChild[]): 
   return 1 + adults.length + children.length;
 }
 
-// 지성전은 일반 등록비 설정과 무관하게 고정 요금을 적용한다.
+// 광림남교회은 일반 등록비 설정과 무관하게 고정 요금을 적용한다.
 const JISEONGJEON_ADULT_FEE = 30_000;
 const JISEONGJEON_SCHOOL_AGE_CHILD_FEE = 10_000;
 
@@ -22,7 +22,7 @@ function calcChildFee(
   if (child.age <= INFANT_FREE_MAX_AGE) return 0;
   if (ageRank >= FREE_FROM_CHILD_RANK) return 0;
 
-  if (affiliation === '지성전') {
+  if (affiliation === '광림남교회') {
     return child.schoolStatus === '취학' ? JISEONGJEON_SCHOOL_AGE_CHILD_FEE : 0;
   }
   return child.schoolStatus === '취학' ? settings.schoolAgeChildFee : settings.preschoolChildFee;
@@ -34,7 +34,7 @@ export function calcAmountDue(
   children: FamilyChild[],
   settings: Pick<Settings, 'adultFee' | 'schoolAgeChildFee' | 'preschoolChildFee'>,
 ): number {
-  const adultFee = affiliation === '지성전' ? JISEONGJEON_ADULT_FEE : settings.adultFee;
+  const adultFee = affiliation === '광림남교회' ? JISEONGJEON_ADULT_FEE : settings.adultFee;
 
   // 나이 많은 순으로 정렬해 "첫째/둘째/셋째" 순번을 매긴 뒤 셋째부터 무료 규칙을 적용한다.
   const childrenByAgeDesc = [...children].sort((a, b) => b.age - a.age);
