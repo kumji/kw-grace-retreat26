@@ -20,7 +20,8 @@ import { calcAmountDue, calcTotalCount } from '@/lib/calc';
 import { guardSnapshotTimeout, withTimeout } from '@/lib/timeout';
 import { normalizePhone } from '@/lib/phone';
 import { isEarlyBirdEligible } from '@/lib/registrationState';
-import type { Registration, RegistrationInput, Settings } from '@/types';
+import { findRoomNumber } from '@/lib/roomAssignment';
+import type { FamilyAdult, Registration, RegistrationInput, Settings } from '@/types';
 
 const COLLECTION = 'registrations';
 
@@ -41,7 +42,7 @@ function docToRegistration(
     phone: data.phone,
     birthMonth: data.birthMonth,
     bloodType: data.bloodType,
-    lodging: data.lodging,
+    lodging: findRoomNumber([data.name, ...((data.adults ?? []) as FamilyAdult[]).map((a) => a.name)]),
     adults: data.adults ?? [],
     children: data.children ?? [],
     note: data.note ?? '',

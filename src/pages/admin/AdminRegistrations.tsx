@@ -125,7 +125,7 @@ export function AdminRegistrations() {
           <table className="w-full min-w-[900px] text-left text-sm">
             <thead className="bg-gray-50 text-xs text-gray-500">
               <tr>
-                {['분류', '등록자', '이름', '소속', '연락처', '생년월', '혈액형', '숙박', '구분', '입금', '체크인', '기타'].map(
+                {['분류', '등록자', '이름', '소속', '연락처', '생년월', '혈액형', '방번호', '구분', '입금', '체크인', '기타'].map(
                   (h) => (
                     <th key={h} className="whitespace-nowrap px-2 py-2 font-semibold">
                       {h}

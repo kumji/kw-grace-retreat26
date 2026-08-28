@@ -113,7 +113,7 @@ export function AdminCheckin() {
               <span className="text-sm text-gray-400">{registration.affiliation}</span>
             </div>
             <p className="text-sm text-gray-700">연락처 : {registration.phone}</p>
-            <p className="text-sm text-gray-700">숙박 여부 : {registration.lodging}</p>
+            <p className="text-sm text-gray-700">방번호 : {registration.lodging || '미배정'}</p>
             <p
               className={`text-sm font-semibold ${
                 registration.paymentStatus === '입금완료' ? 'text-brand-600' : 'text-gray-400'

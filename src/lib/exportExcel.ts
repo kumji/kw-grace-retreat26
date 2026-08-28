@@ -19,7 +19,7 @@ export async function exportRegistrationsToExcel(
     연락처: row.phone,
     생년월: row.birthMonth === '' ? '' : `${row.birthMonth}월`,
     혈액형: row.bloodType,
-    숙박: row.lodging,
+    방번호: row.lodging,
     구분: row.registrationPhase,
     입금: row.paymentStatus,
     체크인: row.checkedIn ? 'O' : 'X',

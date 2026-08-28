@@ -1,4 +1,4 @@
-import type { Affiliation, BloodType, LodgingOption, PaymentStatus, Registration } from '@/types';
+import type { Affiliation, BloodType, PaymentStatus, Registration } from '@/types';
 
 export type RowCategory = '대표' | '성인' | '취학' | '미취학';
 export type RegistrationPhaseLabel = '얼리버드' | '일반';
@@ -12,7 +12,7 @@ export interface DisplayRow {
   phone: string;
   birthMonth: number | '';
   bloodType: BloodType | '';
-  lodging: LodgingOption;
+  lodging: string;
   paymentStatus: PaymentStatus;
   checkedIn: boolean;
   registrationPhase: RegistrationPhaseLabel;

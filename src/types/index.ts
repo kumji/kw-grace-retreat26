@@ -1,6 +1,5 @@
 export type Affiliation = '청장1부' | '청장2부' | '광림남교회';
 export type BloodType = 'A' | 'B' | 'O' | 'AB';
-export type LodgingOption = '침대방' | '온돌방' | '숙박안함';
 export type PaymentStatus = '입금전' | '입금완료';
 export type RegistrationState = '등록예정' | '등록중' | '등록마감';
 export type SchoolStatus = '취학' | '미취학';
@@ -24,7 +23,8 @@ export interface Registration {
   phone: string;
   birthMonth: number;
   bloodType: BloodType;
-  lodging: LodgingOption;
+  // 방 배정 엑셀에서 이름으로 찾은 방번호. 미배정이면 빈 문자열.
+  lodging: string;
   adults: FamilyAdult[];
   children: FamilyChild[];
   note: string;
@@ -43,6 +43,7 @@ export interface Registration {
 export type RegistrationInput = Omit<
   Registration,
   | 'id'
+  | 'lodging'
   | 'totalCount'
   | 'amountDue'
   | 'paymentStatus'

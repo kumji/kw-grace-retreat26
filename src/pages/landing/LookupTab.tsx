@@ -181,7 +181,6 @@ export function LookupTab() {
       phone: registration.phone,
       birthMonth: registration.birthMonth,
       bloodType: registration.bloodType,
-      lodging: registration.lodging,
       adults: registration.adults,
       children: registration.children,
       note: registration.note,
@@ -233,8 +232,8 @@ export function LookupTab() {
           <dd className="text-right text-gray-700">{registration.birthMonth}월</dd>
           <dt className="text-gray-400">혈액형</dt>
           <dd className="text-right text-gray-700">{registration.bloodType}형</dd>
-          <dt className="text-gray-400">숙박 여부</dt>
-          <dd className="text-right text-gray-700">{registration.lodging}</dd>
+          <dt className="text-gray-400">방번호</dt>
+          <dd className="text-right text-gray-700">{registration.lodging || '미배정'}</dd>
         </dl>
 
         {registration.adults.length > 0 && (

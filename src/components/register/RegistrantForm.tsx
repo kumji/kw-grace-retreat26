@@ -4,10 +4,9 @@ import { Button } from '@/components/ui/Button';
 import { Input, Label, Select, Textarea } from '@/components/ui/Field';
 import { FamilyAdultCard } from '@/components/register/FamilyAdultCard';
 import { FamilyChildCard } from '@/components/register/FamilyChildCard';
-import { LodgingToggle } from '@/components/register/LodgingToggle';
 import { affiliationOptions, birthMonthOptions, bloodTypeOptions } from '@/lib/options';
 import { calcAmountDue, calcTotalCount, formatCurrency } from '@/lib/calc';
-import type { Affiliation, BloodType, FamilyAdult, FamilyChild, LodgingOption, RegistrationInput, Settings } from '@/types';
+import type { Affiliation, BloodType, FamilyAdult, FamilyChild, RegistrationInput, Settings } from '@/types';
 
 const emptyAdult: FamilyAdult = { name: '', birthMonth: 1, bloodType: 'A'};
 const emptyChild: FamilyChild = { name: '', age: 0, schoolStatus: '미취학' };
@@ -27,7 +26,6 @@ export function RegistrantForm({ initialValue, settings, submitLabel, submitting
   const [phone, setPhone] = useState(initialValue.phone);
   const [birthMonth, setBirthMonth] = useState(initialValue.birthMonth);
   const [bloodType, setBloodType] = useState<BloodType>(initialValue.bloodType);
-  const [lodging, setLodging] = useState<LodgingOption>(initialValue.lodging);
   const [adults, setAdults] = useState<FamilyAdult[]>(initialValue.adults);
   const [children, setChildren] = useState<FamilyChild[]>(initialValue.children);
   const [note, setNote] = useState(initialValue.note);
@@ -49,7 +47,6 @@ export function RegistrantForm({ initialValue, settings, submitLabel, submitting
       phone: phone.trim(),
       birthMonth,
       bloodType,
-      lodging,
       adults,
       children,
       note: note.trim(),
@@ -116,10 +113,6 @@ export function RegistrantForm({ initialValue, settings, submitLabel, submitting
                 </option>
               ))}
             </Select>
-          </div>
-          <div className="col-span-2">
-            <Label htmlFor="lodging">숙박 여부</Label>
-            <LodgingToggle value={lodging} onChange={setLodging} />
           </div>
         </div>
       </Card>
