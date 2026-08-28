@@ -49,9 +49,9 @@ export const PROGRAMS: ProgramDef[] = [
   },
   {
     id: 'startup-coaching',
-    name: '창업코칭',
+    name: '창업코칭: 창업하지 않아도 배워야 할 비지니스 기술',
     location: '미정',
-    detail: '창업에 대한 전문적인 코칭 프로그램입니다.',
+    detail: '커리어를 재설계해야 할 시기에 창업을 생각하게 됩니다. 창업 그 자체보다 실패하지 않고 지속 성장하는 것이 중요합니다. 그래서 창업하기 전에 알아야할 것들이 있습니다. 계속 회사생활을 하더라도 꼭 배워야 할 내용입니다.',
     slots: [
       { id: 'time1', label: '타임1', capacity: null, unitLabel: '명' },
       { id: 'time2', label: '타임2', capacity: null, unitLabel: '명' },
