@@ -109,16 +109,6 @@ export const PROGRAMS: ProgramDef[] = [
     ],
   },
   {
-    id: 'career-change',
-    name: '취업과 이직에 대한 영적 대화',
-    location: '3층 식당',
-    detail: '불4화(불만·불평·불신·불안)로 가득한 우리의 직장생활, 이대로 괜찮은 걸까요 주님…? 솔직담백 영적 수다의 시간으로 초대합니다.',
-    slots: [
-      { id: 'time1', label: '타임1', capacity: 8, unitLabel: '명' },
-      { id: 'time2', label: '타임2', capacity: 8, unitLabel: '명' },
-    ],
-  },
-  {
     id: 'book-club',
     name: '북클럽 - 좋아하는 책 소개',
     location: '3층 식당',
