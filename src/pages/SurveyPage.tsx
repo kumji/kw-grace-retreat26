@@ -9,7 +9,6 @@ import { submitSurveyResponse } from '@/services/surveyResponses';
 
 export function SurveyPage() {
   const [answers, setAnswers] = useState<string[]>(() => SURVEY_QUESTIONS.map(() => ''));
-  const [touched, setTouched] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -18,15 +17,9 @@ export function SurveyPage() {
     setAnswers((prev) => prev.map((a, i) => (i === index ? value : a)));
   }
 
-  const emptyIndexes = answers
-    .map((a, i) => (a.trim() ? -1 : i))
-    .filter((i) => i !== -1);
-
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    setTouched(true);
     setError('');
-    if (emptyIndexes.length > 0) return;
 
     setSubmitting(true);
     try {
@@ -41,7 +34,6 @@ export function SurveyPage() {
 
   function handleRestart() {
     setAnswers(SURVEY_QUESTIONS.map(() => ''));
-    setTouched(false);
     setError('');
     setSubmitted(false);
   }
@@ -90,27 +82,23 @@ export function SurveyPage() {
             <Card className="space-y-2">
               <p className="whitespace-pre-line text-sm text-gray-600">{SURVEY_GREETING}</p>
               <p className="text-xs text-gray-400">
-                무기명 설문이며, 제출 후에는 수정하거나 취소할 수 없습니다. 모든 문항은 필수입니다.
+                무기명 설문이며, 제출 후에는 수정하거나 취소할 수 없습니다.
               </p>
             </Card>
 
-            {SURVEY_QUESTIONS.map((question, i) => {
-              const showError = touched && !answers[i].trim();
-              return (
-                <Card key={i} className="space-y-2">
-                  <Label htmlFor={`q-${i}`}>
-                    {i + 1}. {question}
-                  </Label>
-                  <Textarea
-                    id={`q-${i}`}
-                    value={answers[i]}
-                    onChange={(e) => handleChange(i, e.target.value)}
-                    disabled={submitting}
-                  />
-                  {showError && <p className="text-xs text-rose-500">이 문항은 필수입니다.</p>}
-                </Card>
-              );
-            })}
+            {SURVEY_QUESTIONS.map((question, i) => (
+              <Card key={i} className="space-y-2">
+                <Label htmlFor={`q-${i}`}>
+                  {i + 1}. {question}
+                </Label>
+                <Textarea
+                  id={`q-${i}`}
+                  value={answers[i]}
+                  onChange={(e) => handleChange(i, e.target.value)}
+                  disabled={submitting}
+                />
+              </Card>
+            ))}
 
             {error && <p className="text-center text-sm text-rose-500">{error}</p>}
 
