@@ -68,6 +68,7 @@ export function SurveyPage() {
             src={`${import.meta.env.BASE_URL}img/group-photo.mp4`}
             autoPlay
             muted
+            loop
             playsInline
             controls
             className="w-full"
