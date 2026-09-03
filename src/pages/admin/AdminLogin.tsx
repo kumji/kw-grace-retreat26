@@ -13,7 +13,7 @@ export function AdminLogin() {
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  const from = (location.state as { from?: string } | null)?.from ?? '/admin/registrations';
+  const from = (location.state as { from?: string } | null)?.from ?? '/admin';
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();

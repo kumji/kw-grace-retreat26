@@ -1,10 +1,10 @@
 rules_version = '2';
 
-// Admin identity: the login screen (a single password field, per spec 4.0) signs
-// in behind the scenes with a fixed Firebase Auth account. `request.auth.uid`
-// counting as "admin" is determined by the existence of admins/{uid} — that
-// collection is never client-writable, so nobody can self-promote by creating
-// a Firebase Auth account and writing their own uid into it.
+// Admin identity: the login screen (a single password field) signs in behind
+// the scenes with a fixed Firebase Auth account. `request.auth.uid` counting
+// as "admin" is determined by the existence of admins/{uid} — that collection
+// is never client-writable, so nobody can self-promote by creating a Firebase
+// Auth account and writing their own uid into it.
 service cloud.firestore {
   match /databases/{database}/documents {
     function isAdmin() {
@@ -19,28 +19,13 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
-    match /registrations/{registrationId} {
-      // Public registration flow: anyone can create their own registration,
-      // read to look up/QR-checkin, and delete (등록 취소) with just the
-      // document id or a name+phone match — matches spec's no-account design.
-      allow read, create, delete: if true;
-
-      // Self-edit (등록 정보 수정) stays open the same way, but payment status
-      // and check-in state can only change through an authenticated admin.
-      allow update: if isAdmin() ||
-        !request.resource.data.diff(resource.data).affectedKeys()
-          .hasAny(['paymentStatus', 'earlyBirdEligible', 'checkedIn', 'checkedInAt']);
-    }
-
-    match /settings/{settingsId} {
-      allow read: if true;
-      allow write: if isAdmin();
-    }
-
-    match /programSignups/{signupId} {
-      // 선택 프로그램 신청도 계정 없이 이름/소속만으로 등록·취소하는 동일한 방식.
-      allow read, create, delete: if true;
-      allow update: if false;
+    // 무기명 설문: 누구나 제출(create)할 수 있지만, 제출 후에는 수정·삭제할 수 없다.
+    // 응답 열람은 관리자만 가능 (설문 응답 원문 자체는 저장하지 않고, PDF가 저장된
+    // Storage 경로만 색인한다).
+    match /surveyResponses/{responseId} {
+      allow read: if isAdmin();
+      allow create: if true;
+      allow update, delete: if false;
     }
   }
 }
