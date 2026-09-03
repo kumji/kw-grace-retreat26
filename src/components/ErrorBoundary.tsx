@@ -8,6 +8,11 @@ interface State {
   hasError: boolean;
 }
 
+
+// 최신 파일을 다시 받아오게 한다. 그래도 안 되면(진짜 오류) 평소처럼 안내한다.
+const CHUNK_LOAD_ERROR_PATTERN = /fetch dynamically imported module|error loading dynamically imported module/i;
+const RELOAD_FLAG_KEY = 'chunk_reload_attempted';
+
 export class ErrorBoundary extends Component<Props, State> {
   state: State = { hasError: false };
 
@@ -17,6 +22,11 @@ export class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     console.error('Unhandled UI error:', error, info);
+
+    if (CHUNK_LOAD_ERROR_PATTERN.test(error.message) && !sessionStorage.getItem(RELOAD_FLAG_KEY)) {
+      sessionStorage.setItem(RELOAD_FLAG_KEY, '1');
+      window.location.reload();
+    }
   }
 
   render() {
