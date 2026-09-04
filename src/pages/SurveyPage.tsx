@@ -6,12 +6,15 @@ import { Label, Textarea } from '@/components/ui/Field';
 import { ForestBackground } from '@/components/ForestBackground';
 import { SURVEY_GREETING, SURVEY_QUESTIONS, SURVEY_TITLE } from '@/lib/surveyQuestions';
 import { submitSurveyResponse } from '@/services/surveyResponses';
+import { downloadCoupon } from '@/lib/generateCoupon';
 
 export function SurveyPage() {
   const [answers, setAnswers] = useState<string[]>(() => SURVEY_QUESTIONS.map(() => ''));
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [downloadingCoupon, setDownloadingCoupon] = useState(false);
+  const [couponDownloaded, setCouponDownloaded] = useState(false);
 
   function handleChange(index: number, value: string) {
     setAnswers((prev) => prev.map((a, i) => (i === index ? value : a)));
@@ -36,6 +39,21 @@ export function SurveyPage() {
     setAnswers(SURVEY_QUESTIONS.map(() => ''));
     setError('');
     setSubmitted(false);
+  }
+
+  async function handleCouponDownload() {
+    setDownloadingCoupon(true);
+    try {
+      await downloadCoupon();
+      setCouponDownloaded(true);
+    } finally {
+      setDownloadingCoupon(false);
+    }
+  }
+
+  function handleCouponConfirm() {
+    setCouponDownloaded(false);
+    handleRestart();
   }
 
   return (
@@ -73,8 +91,8 @@ export function SurveyPage() {
               <p className="text-lg font-semibold text-brand-700">제출이 완료되었습니다.</p>
               <p className="text-sm text-gray-500">소중한 의견 감사드립니다.</p>
             </div>
-            <Button type="button" variant="outline" onClick={handleRestart}>
-              처음으로
+            <Button type="button" variant="outline" disabled={downloadingCoupon} onClick={handleCouponDownload}>
+              {downloadingCoupon ? '쿠폰 만드는 중...' : '청장 음료 쿠폰 받기'}
             </Button>
           </Card>
         ) : (
@@ -108,6 +126,17 @@ export function SurveyPage() {
           </form>
         )}
       </div>
+
+      {couponDownloaded && (
+        <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/40 px-4">
+          <Card className="w-full max-w-xs space-y-4 text-center">
+            <p className="text-base font-semibold text-brand-700">쿠폰 다운로드 완료</p>
+            <Button type="button" className="w-full" onClick={handleCouponConfirm}>
+              확인
+            </Button>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }
