@@ -45,7 +45,7 @@ function drawCoffeeCup(ctx: CanvasRenderingContext2D, cx: number, cy: number, si
   ctx.restore();
 }
 
-export async function generateCouponBlob(): Promise<Blob> {
+export function generateCouponDataUrl(): string {
   const width = 900;
   const height = 420;
   const canvas = document.createElement('canvas');
@@ -85,20 +85,5 @@ export async function generateCouponBlob(): Promise<Blob> {
   ctx.font = '20px "Apple SD Gothic Neo", "Malgun Gothic", sans-serif';
   ctx.fillText('2026 가을 청장년부 영성수련회', 320, 260);
 
-  return new Promise((resolve, reject) => {
-    canvas.toBlob((blob) => {
-      if (blob) resolve(blob);
-      else reject(new Error('쿠폰 이미지를 만들지 못했습니다.'));
-    }, 'image/png');
-  });
-}
-
-export async function downloadCoupon(): Promise<void> {
-  const blob = await generateCouponBlob();
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = '청장_음료_쿠폰.png';
-  a.click();
-  URL.revokeObjectURL(url);
+  return canvas.toDataURL('image/png');
 }

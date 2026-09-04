@@ -6,27 +6,36 @@ import { Label, Textarea } from '@/components/ui/Field';
 import { ForestBackground } from '@/components/ForestBackground';
 import { SURVEY_GREETING, SURVEY_QUESTIONS, SURVEY_TITLE } from '@/lib/surveyQuestions';
 import { submitSurveyResponse } from '@/services/surveyResponses';
-import { downloadCoupon } from '@/lib/generateCoupon';
+import { generateCouponDataUrl } from '@/lib/generateCoupon';
+
+const MIN_ANSWER_LENGTH = 10;
 
 export function SurveyPage() {
   const [answers, setAnswers] = useState<string[]>(() => SURVEY_QUESTIONS.map(() => ''));
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
-  const [downloadingCoupon, setDownloadingCoupon] = useState(false);
-  const [couponDownloaded, setCouponDownloaded] = useState(false);
+  const [couponUrl, setCouponUrl] = useState('');
 
   function handleChange(index: number, value: string) {
     setAnswers((prev) => prev.map((a, i) => (i === index ? value : a)));
   }
 
+  const hasSubstantialAnswer = answers.some((a) => a.trim().length >= MIN_ANSWER_LENGTH);
+
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     setError('');
 
+    if (!hasSubstantialAnswer) {
+      setError(`최소 1개 문항에는 ${MIN_ANSWER_LENGTH}자 이상 답변해 주셔야 제출할 수 있어요.`);
+      return;
+    }
+
     setSubmitting(true);
     try {
       await submitSurveyResponse(answers);
+      setCouponUrl(generateCouponDataUrl());
       setSubmitted(true);
     } catch {
       setError('제출 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
@@ -39,21 +48,7 @@ export function SurveyPage() {
     setAnswers(SURVEY_QUESTIONS.map(() => ''));
     setError('');
     setSubmitted(false);
-  }
-
-  async function handleCouponDownload() {
-    setDownloadingCoupon(true);
-    try {
-      await downloadCoupon();
-      setCouponDownloaded(true);
-    } finally {
-      setDownloadingCoupon(false);
-    }
-  }
-
-  function handleCouponConfirm() {
-    setCouponDownloaded(false);
-    handleRestart();
+    setCouponUrl('');
   }
 
   return (
@@ -91,8 +86,18 @@ export function SurveyPage() {
               <p className="text-lg font-semibold text-brand-700">제출이 완료되었습니다.</p>
               <p className="text-sm text-gray-500">소중한 의견 감사드립니다.</p>
             </div>
-            <Button type="button" variant="outline" disabled={downloadingCoupon} onClick={handleCouponDownload}>
-              {downloadingCoupon ? '쿠폰 만드는 중...' : '청장 음료 쿠폰 받기'}
+            {couponUrl && (
+              <img
+                src={couponUrl}
+                alt="청장 음료 쿠폰"
+                className="w-full rounded-2xl border border-brand-100"
+              />
+            )}
+            <p className="text-sm font-medium text-gray-700">
+              위 쿠폰을 캡쳐하셔서 청장2부 스텝에게 보여주시면 음료 한잔을 드립니다.
+            </p>
+            <Button type="button" variant="outline" onClick={handleRestart}>
+              처음으로
             </Button>
           </Card>
         ) : (
@@ -100,7 +105,8 @@ export function SurveyPage() {
             <Card className="space-y-2">
               <p className="whitespace-pre-line text-sm text-gray-600">{SURVEY_GREETING}</p>
               <p className="text-xs text-gray-400">
-                무기명 설문이며, 제출 후에는 수정하거나 취소할 수 없습니다.
+                무기명 설문이며, 제출 후에는 수정하거나 취소할 수 없습니다. 최소 1개 문항에는{' '}
+                {MIN_ANSWER_LENGTH}자 이상 답변해 주세요.
               </p>
             </Card>
 
@@ -126,17 +132,6 @@ export function SurveyPage() {
           </form>
         )}
       </div>
-
-      {couponDownloaded && (
-        <div className="fixed inset-0 z-20 flex items-center justify-center bg-black/40 px-4">
-          <Card className="w-full max-w-xs space-y-4 text-center">
-            <p className="text-base font-semibold text-brand-700">쿠폰 다운로드 완료</p>
-            <Button type="button" className="w-full" onClick={handleCouponConfirm}>
-              확인
-            </Button>
-          </Card>
-        </div>
-      )}
     </div>
   );
 }
